@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <title>AcVis - Login</title>
+    <title>AcVis - Restore Account</title>
     <link rel="stylesheet" href="assets/css/nav-style.css">
     <link rel="stylesheet" href="assets/css/login-style.css">
 </head>
@@ -21,18 +21,20 @@
     </header>
 
     <main class="container">
-        <form id="login-form" class="form">
-            <h2 class="text">Login Form</h2>
+        <form id="register-new-user-form" class="form">
+            <h2 class="text">Restore your Account</h2>
 
-            <input type="text" name="uid" placeholder="Username/Email" id="username-field">
-            <input type="password" name="pwd" placeholder="Password" id="password-field">
-            <button type="submit" name="login-submit" id="login-form-submit">Login</button>
             <div class="text">
-                <a href="restore_account.html">Forgot Password?</a>
+                Enter your user account's verified email address and we will send you a password reset link.
             </div>
+
+            <input type="email" name="uid" placeholder="Email" id="username-field" required>
+
+            <button type="submit" name="submit" id="register-new-user">Register</button>
+            <div class="text"></div>
             <hr>
             <div class="text">
-                New to AcVis? <a href="./register.html">Create an account</a>
+                Remembered your account? <a href="./login.html">Sign in Here</a>
             </div>
         </form>
     </main>

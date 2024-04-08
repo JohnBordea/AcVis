@@ -1,0 +1,98 @@
+main {
+    padding: 20px;
+}
+h1 {
+    font-size: 24px;
+}
+@media screen and (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header h1 {
+        margin-bottom: 10px;
+    }
+    nav {
+        margin-top: 10px;
+    }
+    main {
+        padding: 10px;
+    }
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+.container a {
+    color:#01b4e4;
+    transition: all 300ms ease-in-out;
+}
+.container a:hover {
+    color: #90cea1;
+}
+.form {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+@media screen and (max-width: 500px) {
+    .form {
+        Width: 90%;
+        border: 0px;
+    }
+}
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.form .text {
+    text-align: center;
+}
+.text {
+    padding: 10px;
+}
+input {
+    width: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    min-height: 36px;
+}
+
+
+/*Register*/
+.form .line-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.form button,
+.line-item input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #0d253f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 50ms ease-in-out;
+}
+.form button:hover,
+.line-item input[type="submit"]:hover {
+    background-color: #01b4e4;
+    transition: all 300ms ease-in-out;
+}
