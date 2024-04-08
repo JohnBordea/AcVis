@@ -1,0 +1,72 @@
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-direction: row;
+}
+.user-profile img {
+    width: 400px;
+    height: 400px
+}
+.data-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 400px;
+}
+.data-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.data-box .component {
+    margin-bottom: 15px;
+}
+input {
+    width: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    min-height: 36px;
+}
+@media screen and (max-width: 900px) {
+    .user-profile {
+        Width: 90%;
+        flex-direction: column;
+    }
+}
+.data-box button {
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.data-box .pair {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.data-box .pair button {
+    width: 45%
+}
+button.enabled {
+    background-color: #0d253f;
+    transition: all 50ms ease-in-out;
+}
+button.enabled:hover {
+    background-color: #01b4e4;
+    transition: all 300ms ease-in-out;
+}
+button.disabled {
+    background-color: #262626;
+    transition: all 50ms ease-in-out;
+}
+button.disabled:hover {
+    background-color: #888888;
+    transition: all 300ms ease-in-out;
+}

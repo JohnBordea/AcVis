@@ -1,0 +1,95 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+.container a {
+    color:#4caf50;
+    transition: all 300ms ease-in-out;
+}
+.container a:hover {
+    color: #0077B5;
+}
+
+.add-user h2 {
+    margin-bottom: 30px;
+}
+.add-user form {
+    max-width: 640px;
+}
+.add-user form p.success {
+    color:#4caf50;
+    margin-bottom: 20px;
+}
+.add-user form p.error {
+    color:rgba(201, 0, 0, 1);
+    margin-bottom: 20px;
+}
+.add-user form input[type="text"],
+.add-user form input[type="email"],
+.add-user form input[type="password"],
+.add-user form input[type="submit"],
+.add-user form .filter-item,
+.admin-checkbox,
+.cci-data {
+    width: 100%;
+}
+.admin-checkbox,
+.cci-data {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    gap:10px;
+}
+.add-user form input[type="checkbox"] {
+    margin-bottom: 0;
+}
+.add-user {
+    margin-bottom: 100px;
+}
+.add-user .line-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+.signup-link {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+.form button,
+.line-item input[type="submit"],
+.filter-item input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.add-user .line-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.add-user form input[type="checkbox"] {
+    margin-bottom: 0;
+}
+.add-user {
+    margin-bottom: 100px;
+}
+input {
+    width: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    min-height: 36px;
+}

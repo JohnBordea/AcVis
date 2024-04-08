@@ -35,3 +35,39 @@ nav ul li a {
     color: #fff;
     text-decoration: none;
 }
+main {
+    padding: 20px;
+}
+h1 {
+    font-size: 24px;
+}
+@media screen and (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header h1 {
+        margin-bottom: 10px;
+    }
+    nav {
+        margin-top: 10px;
+    }
+    main {
+        padding: 10px;
+    }
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.container a {
+    color:#01b4e4;
+    transition: all 300ms ease-in-out;
+}
+.container a:hover {
+    color: #90cea1;
+}
