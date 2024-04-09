@@ -70,3 +70,83 @@ button.disabled:hover {
     background-color: #888888;
     transition: all 300ms ease-in-out;
 }
+.favorite {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    /*overflow: scroll;*/
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0px;
+}
+.favorite .f-item {
+    position: relative;
+    width: 180px;
+    margin: 10px;
+}
+.favorite .f-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background-color: DodgerBlue;
+}
+.f-item .f-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #0d253f;
+    text-align: center;
+    margin: 0px;
+    transition: .5s ease;
+    overflow: hidden;
+    height: 0px;
+}
+.f-item .f-name h3 {
+    color: #ccc;
+}
+.favorite .f-item:hover .f-name {
+    height: auto;
+}
+
+@media screen and (max-width: 1300px) {
+    .favorite {
+        width: 1000px;
+    }
+}
+@media screen and (max-width: 1100px) {
+    .favorite {
+        width: 800px;
+    }
+}
+@media screen and (max-width: 900px) {
+    .favorite {
+        width: 600px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .favorite {
+        width: 400px;
+    }
+}
+.data-box .favorite-page {
+    width: 75px;
+}
+.data-box button.page-index {
+    background-color: #01b4e4;
+    width: 75px;
+    border-radius: 0px;
+}
+.data-box button.previous {
+    border-radius: 10px 0px 0px 10px;
+}
+.data-box button.next {
+    border-radius: 0px 10px 10px 0px;
+}
+.data-box .centered {
+    margin: 0px auto;
+}
+a.invisible-link {
+    color: inherit;
+    text-decoration: inherit;
+}

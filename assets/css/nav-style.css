@@ -62,7 +62,7 @@ h1 {
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 0px;
 }
 .container a {
     color:#01b4e4;
