@@ -71,3 +71,7 @@ h1 {
 .container a:hover {
     color: #90cea1;
 }
+a.invisible-link {
+    color: inherit;
+    text-decoration: inherit;
+}

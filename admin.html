@@ -15,12 +15,588 @@
             <nav>
                 <ul>
                     <li><a href="">Main</a></li>
-                    <li><a href="">Main</a></li>
+                    <li><a href="login.html">Login</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <main class="container">
+        <div class="tab-bar-menu">
+            <button class="tab-bar-link" onclick="openCity(event, 'menu-user')" id="defaultOpen">Users</button>
+            <button class="tab-bar-link" onclick="openCity(event, 'menu-actor')">Actors</button>
+            <button class="tab-bar-link" onclick="openCity(event, 'menu-oscar')">Oscars</button>
+        </div>
+        <div class="tab-bar-content" id="menu-user">
+            <table class="user-table">
+                <tr>
+                    <th class="id-content">ID</th>
+                    <th class="name-content">First Name</th>
+                    <th class="name-content">Last Name</th>
+                    <th class="name-content">Email</th>
+                    <th class="action-content">Actions</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>17</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>18</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>19</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>email@email.email</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+            </table>
+            <div class="data-box">
+                <div class="component centered">
+                    <button id="button-user-table-previous" class="page-index previous">Previous</button>
+                    <input placeholder="Page" id="user-table-page-index" type="number" value="1" class="favorite-page">
+                    <button id="button-user-table-next" class="page-index next">Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="tab-bar-content" id="menu-actor">
+            <table class="user-table">
+                <tr>
+                    <th class="id-content">ID</th>
+                    <th class="name-content">First Name</th>
+                    <th class="name-content">Last Name</th>
+                    <th class="name-content">Date of Birth</th>
+                    <th class="action-content" colspan="2">Actions</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>17</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>18</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>19</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>01-01-1900</td>
+                    <td class="edit small" onclick="">Edit</td>
+                    <td class="delete small" onclick="">Delete</td>
+                </tr>
+            </table>
+            <div class="data-box">
+                <div class="component centered">
+                    <button id="button-user-table-previous" class="page-index previous">Previous</button>
+                    <input placeholder="Page" id="user-table-page-index" type="number" value="1" class="favorite-page">
+                    <button id="button-user-table-next" class="page-index next">Next</button>
+                </div>
+            </div>
+            <hr>
+            <div class="create-entry">
+                <form class="data-box">
+                    <h3>Create an Actor Entry</h3>
+                    <div class="component">
+                        <label>Firstname</label>
+                        <input placeholder="Firstname" id="actor-firstname" value="" type="text">
+                    </div>
+                    <div class="component">
+                        <label>Lastname</label>
+                        <input placeholder="Lastname" id="actor-lastname" value="" type="text">
+                    </div>
+                    <div class="component">
+                        <label>Date of Birth</label>
+                        <input placeholder="Date of Birth" id="actor-date" value="" type="date">
+                    </div>
+                    <div class="component">
+                        <button name="save" id="button-actor-save">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tab-bar-content" id="menu-oscar">
+            <table class="oscar-table">
+                <tr>
+                    <th class="id-content">Year</th>
+                    <th class="name-content">Category</th>
+                    <th class="name-content">Full Name</th>
+                    <th class="name-content">Show</th>
+                    <th class="name-content small">Won</th>
+                    <th class="action-content small">Actions</th>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Category</td>
+                    <td>First Name Last Name</td>
+                    <td>Show Name</td>
+                    <td>Nomination</td>
+                    <td class="delete" onclick="">Delete</td>
+                </tr>
+            </table>
+            <div class="data-box">
+                <div class="component centered">
+                    <button id="button-user-table-previous" class="page-index previous">Previous</button>
+                    <input placeholder="Page" id="user-table-page-index" type="number" value="1" class="favorite-page">
+                    <button id="button-user-table-next" class="page-index next">Next</button>
+                </div>
+            </div>
+            <hr>
+            <div class="create-entry">
+                <form class="data-box">
+                    <h3>Create an Oscar Entry</h3>
+                    <div class="component">
+                        <label>Year</label>
+                        <input placeholder="Year" id="oscar-year" value="2000" type="number">
+                    </div>
+                    <div class="component">
+                        <label>Category</label>
+                        <select id="oscar-category" name="Category">
+                            <option value="category1">Category1</option>
+                            <option value="category2">Category2</option>
+                            <option value="category3">Category3</option>
+                            <option value="category4">Category4</option>
+                        </select>
+                    </div>
+                    <div class="component">
+                        <label>Actor</label>
+                        <select id="oscar-actor" name="Actor">
+                            <option value="actor1">Actor1</option>
+                            <option value="actor2">Actor2</option>
+                            <option value="actor3">Actor3</option>
+                            <option value="actor4">Actor4</option>
+                        </select>
+                    </div>
+                    <div class="component">
+                        <label>Winning Nominalization</label>
+                        <input id="oscar-win" value="" type="checkbox" class="form-checkbox">
+                    </div>
+                    <div class="component">
+                        <button name="save" id="button-actor-save">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </main>
 </body>
 </html>

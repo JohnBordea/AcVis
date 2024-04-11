@@ -74,7 +74,6 @@ button.disabled:hover {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
-    /*overflow: scroll;*/
     width: 1200px;
     margin: 0 auto;
     padding: 0px;
@@ -145,8 +144,4 @@ button.disabled:hover {
 }
 .data-box .centered {
     margin: 0px auto;
-}
-a.invisible-link {
-    color: inherit;
-    text-decoration: inherit;
 }
