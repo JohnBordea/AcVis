@@ -72,19 +72,23 @@ table .delete {
     color: white;
     cursor: pointer;
 }
-table .edit {
+table .edit,
+.data-box button {
     background-color: #0d253f;
     transition: all 200ms ease-in-out;
 }
-table .edit:hover {
+table .edit:hover,
+.data-box button:hover {
     background-color: #01b4e4;
     transition: all 300ms ease-in-out;
 }
-table .delete {
+table .delete,
+.data-box .delete {
     background-color: #8b0000;
     transition: all 200ms ease-in-out;
 }
-table .delete:hover {
+table .delete:hover,
+.data-box .delete:hover {
     background-color: #ff9677;
     transition: all 300ms ease-in-out;
 }
@@ -151,7 +155,9 @@ table .small {
     width: 20px;
     margin-right: 300px;
 }
-
+.data-box .triple {
+    width: 100px;
+}
 .create-entry {
     display: flex;
     align-items: center;
@@ -160,4 +166,7 @@ table .small {
     flex-direction: row;
     margin: 0 auto;
     width: 400px;
+}
+hr {
+    margin-top: 10px;
 }

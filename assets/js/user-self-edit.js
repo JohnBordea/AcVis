@@ -8,11 +8,33 @@ const FavoritePageButtonIndexRight = document.getElementById("button-favorite-ne
 const FavoritePageIndex = document.getElementById("favorite-page-index");
 
 ButtonEdit.addEventListener("click", (e) => {
-    ;
+    document.getElementById("user-firstname").readOnly = false;
+    document.getElementById("user-lastname").readOnly = false;
+    document.getElementById("user-username").readOnly = false;
+    document.getElementById("user-email").readOnly = false;
+
+    ButtonEdit.classList.remove("enabled");
+    ButtonEdit.classList.add("disabled");
+    ButtonEdit.disabled = true;
+
+    ButtonSave.classList.remove("disabled");
+    ButtonSave.classList.add("enabled");
+    ButtonSave.disabled = false;
 })
 
 ButtonSave.addEventListener("click", (e) => {
-    ;
+    document.getElementById("user-firstname").readOnly = true;
+    document.getElementById("user-lastname").readOnly = true;
+    document.getElementById("user-username").readOnly = true;
+    document.getElementById("user-email").readOnly = true;
+
+    ButtonEdit.classList.remove("disabled");
+    ButtonEdit.classList.add("enabled");
+    ButtonEdit.disabled = false;
+
+    ButtonSave.classList.remove("enabled");
+    ButtonSave.classList.add("disabled");
+    ButtonSave.disabled = true;
 })
 
 FavoritePageButtonIndexLeft.addEventListener("click", (e) => {
@@ -37,7 +59,7 @@ function setFavoriteActors(pageIndex) {
         divTextElement.classList.add("f-name");
 
         var imgElement = document.createElement('img');
-        imgElement.src = "./assets/imgs/profile_icon.bmp";
+        imgElement.src = "./assets/imgs/actor-icon.png";
         imgElement.alt = "Favorite Actor";
 
         var aElement = document.createElement('a');
