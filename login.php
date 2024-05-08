@@ -14,7 +14,7 @@
 <body>
     <nav>
         <ul class="topnav">
-        <li><a href="register.html">Register</a></li>
+        <li><a href="register.php">Register</a></li>
         <li><a href="Main.html">Main</a></li>
         <li><a href="about.html">About</a></li>
         </ul>

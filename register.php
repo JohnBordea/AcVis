@@ -4,15 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>AcVis - Register</title>
-    <link rel="stylesheet" href="../assets/css/nav-style.css">
-    <link rel="stylesheet" href="../assets/css/login-style.css">
+    <link rel="stylesheet" href="assets/css/nav-style.css">
+    <link rel="stylesheet" href="assets/css/login-style.css">
     <script defer src="./assets/js/register.js"></script>
 
 </head>
 <body>
   <nav>
     <ul class="topnav">
-      <li><a href="login.html">Login</a></li>
+      <li><a href="login.php">Login</a></li>
       <li><a href="Main.html">Main</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
