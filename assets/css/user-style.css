@@ -85,8 +85,8 @@ button.disabled:hover {
 }
 .favorite .f-item img {
     display: block;
-    width: 100%;
-    height: auto;
+    width: 180px;
+    height: 180px;
     background-color: DodgerBlue;
 }
 .f-item .f-name {
