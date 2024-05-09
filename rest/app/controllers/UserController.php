@@ -1,6 +1,5 @@
 <?php
-
-class UsersController {
+class UserController {
     private $userModel;
 
     public function __construct() {
@@ -23,31 +22,68 @@ class UsersController {
         echo '404 Not Found';
     }
 
-    public function updateUser($id) {
-            $json_data = file_get_contents('php://input');
-            $data = json_decode($json_data, true);
-            if ($data === null) {
+    public function getUsersByPage($page, $user_token) {
+        $is_admin = $this->userModel->checkUserIsAdmin($user_token);
+        if ($is_admin) {
+            $users = $this->userModel->getUsers();
+            $split_from = ($page - 1) * 20;
+            $user_by_page = array_slice($users, $split_from, 20);
+            http_response_code(200);
+            echo json_encode(['users' => $user_by_page, 'last_page' => count($users) <= ($page * 20)]);
+        } else {
+            http_response_code(204);
+            echo json_encode(['users' => [], 'last_page' => true]);
+        }
+    }
+
+    public function updateUser() {
+        $json_data = file_get_contents('php://input');
+        $data = json_decode($json_data, true);
+        if ($data === null) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid JSON data']);
+            return;
+        }
+        $required_fields = ['token', 'user_id'];
+        foreach ($required_fields as $field) {
+            if (!array_key_exists($field, $data)) {
                 http_response_code(400);
-                echo json_encode(['error' => 'Invalid JSON data']);
+                echo json_encode(['error' => 'Missing required field: ' . $field]);
                 return;
             }
-            $required_fields = ['name', 'email', 'age'];
-            foreach ($required_fields as $field) {
-                if (!array_key_exists($field, $data)) {
-                    http_response_code(400);
-                    echo json_encode(['error' => 'Missing required field: ' . $field]);
-                    return;
-
-                }
         }
 
-        $result = $this->userModel->editUser($id, $data['firstname'], $data['lastname'], $data['username'], $data['email'], $data['password']);
-        if($result) {
-            http_response_code(200);
-            echo json_encode(['message' => 'User updated succesfully']);
+        $is_admin = $this->userModel->checkUserIsAdmin($data['token']);
+        if ($is_admin) {
+            $return = false;
+
+            if (array_key_exists('role', $data)) {
+                $result = $this->userModel->editUserRole($data["user_id"], $data["role"]);
+            } else if (array_key_exists('password', $data)) {
+                $result = $this->userModel->editUserPassword($data["user_id"], $data["password"]);
+            } else {
+                $required_fields = ['firstname', 'lastname', 'username', 'email'];
+                foreach ($required_fields as $field) {
+                    if (!array_key_exists($field, $data)) {
+                        http_response_code(400);
+                        echo json_encode(['error' => 'Missing required field: ' . $field]);
+                        return;
+                    }
+                }
+                $result = $this->userModel->editUser($data["user_id"], $data['firstname'], $data['lastname'], $data['username'], $data['email']);
+            }
+
+            if($result) {
+                http_response_code(200);
+                echo json_encode(['message' => 'User updated succesfully']);
+            } else {
+                http_response_code(404);
+                echo json_encode(['error' => 'User not found']);
+            }
         } else {
-            http_response_code(404);
-            echo json_encode(['error' => 'User not found']);
+            http_response_code(204);
+            echo json_encode(['error' => "bad credentials"]);
+            return;
         }
     }
 
@@ -74,8 +110,32 @@ class UsersController {
         echo json_encode(['message' => 'User created successfully']);
     }
 
-    public function deleteUser($id) {
-        $success = $this->userModel->deleteUser($id);
+    public function deleteUser() {
+        $json_data = file_get_contents('php://input');
+        $data = json_decode($json_data, true);
+        if ($data === null) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid JSON data']);
+            return;
+        }
+        $required_fields = ['token', 'user_id'];
+        foreach ($required_fields as $field) {
+            if (!array_key_exists($field, $data)) {
+                http_response_code(400);
+                echo json_encode(['error' => 'Missing required field: ' . $field]);
+                return;
+            }
+        }
+
+        $is_admin = $this->userModel->checkUserIsAdmin($data['token']);
+
+        if(!$is_admin) {
+            http_response_code(204);
+            echo json_encode(['error' => "bad credentials"]);
+            return;
+        }
+
+        $success = $this->userModel->deleteUser($data['user_id']);
 
         if ($success) {
             http_response_code(200);

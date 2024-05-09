@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +12,7 @@
   <link rel="stylesheet" href="assets/css/nav-style.css">
   <link rel="stylesheet" href="assets/css/admin-style.css">
   <script defer src="assets/js/admin-edit.js"></script>
+  <script defer src="assets/js/admin-edit-users.js"></script>
 </head>
 
 <body>
@@ -15,163 +20,23 @@
   <nav>
     <ul class="topnav">
       <li><a href="Main.html">Home</a></li>
-      <li><a href="login.html" class="active">Admin</a></li>
+      <li><a href="login.php" class="active">Admin</a></li>
     </ul>
   </nav>
   <main class="container">
     <div class="tab-bar-menu">
-      <button class="tab-bar-link" onclick="openCity(event, 'menu-user')" id="defaultOpen">Users</button>
-      <button class="tab-bar-link" onclick="openCity(event, 'menu-actor')">Actors</button>
-      <button class="tab-bar-link" onclick="openCity(event, 'menu-oscar')">Oscars</button>
+      <button class="tab-bar-link" onclick="openProp(event, 'menu-user')" id="defaultOpen">Users</button>
+      <button class="tab-bar-link" onclick="openProp(event, 'menu-actor')">Actors</button>
+      <button class="tab-bar-link" onclick="openProp(event, 'menu-oscar')">Oscars</button>
     </div>
     <div class="tab-bar-content" id="menu-user">
-      <table class="user-table">
+      <table class="user-table" id="general-user-table">
         <tr>
           <th class="id-content">ID</th>
           <th class="name-content">First Name</th>
           <th class="name-content">Last Name</th>
           <th class="name-content">Email</th>
-          <th class="action-content">Actions</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>7</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>8</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>9</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>10</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>11</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>12</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>13</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>14</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>15</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>16</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>17</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>18</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>19</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
-        </tr>
-        <tr>
-          <td>20</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>email@email.email</td>
-          <td class="delete" onclick="">Delete</td>
+          <th class="action-content" colspan="2">Actions</th>
         </tr>
       </table>
       <div class="data-box">

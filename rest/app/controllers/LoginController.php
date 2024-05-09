@@ -29,11 +29,12 @@ class LoginController {
             if($this->userModel->checkUserByPassword($user["id"], $data["password"])) {
                 $token = $this->userModel->addUserSession($user["id"]);
                 $data_to_send = [
-                    "username" => $user["username"],
+                    "username"  => $user["username"],
                     "firstname" => $user["firstname"],
-                    "lastname" => $user["lastname"],
-                    "email" => $user["email"],
-                    "token" => $token
+                    "lastname"  => $user["lastname"],
+                    "email"     => $user["email"],
+                    "role"      => $user["role"],
+                    "token"     => $token
                 ];
                 http_response_code(200);
                 header('Content-Type: application/json; charset=utf-8');

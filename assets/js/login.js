@@ -42,30 +42,20 @@ loginButton.addEventListener("click", (e) => {
 
     xhr.onload = function() {
         var response = JSON.parse(xhr.responseText);
-        //console.log(response);
-        //*
         if (xhr.status >= 200 && xhr.status < 300) {
-            setCookie("token", response['token'], 1);
-            setCookie("firstname", response['firstname'], 1);
-            setCookie("lastname", response['lastname'], 1);
-            setCookie("username", response['username'], 1);
-            setCookie("email", response['email'], 1);
-            //setCookie("role", response['role'], 1);
-            //window.location.replace("user.php");
-            /*username: "JJBB", firstname: "Ion", lastname: "Bordea", email: "j@b.gg", token: "53voST0Lqacb45wp"*/
-            loginConnectMsg.style.display = "initial";
-            document.getElementById("login-connect-msg").textContent = "Thx for logging in " + response['firstname'] + " " + response['lastname'];
+            setCookie("token", response['token'], 10);
+            setCookie("firstname", response['firstname'], 10);
+            setCookie("lastname", response['lastname'], 10);
+            setCookie("username", response['username'], 10);
+            setCookie("email", response['email'], 10);
+            setCookie("role", response['role'], 10);
+            window.location.replace("admin.php");
             loginErrorMsg.style.display = "none";
         } else {
             loginErrorMsg.style.display = "initial";
             loginConnectMsg.style.display = "none";
         }
-        //*/
     };
 
     xhr.send(data);
-})
-
-document.addEventListener("DOMContentLoaded", function () {
-    
 })

@@ -20,11 +20,13 @@ class Router {
         $controller = new $controllerName();
         switch ($method) {
             case 'GET':
-                if ($controllerName === 'UsersController') {
-                    if (!empty($segments[1]) && is_numeric($segments[1])) {
-                        $controller->getUser($segments[1]);
+                if ($controllerName === 'UserController') {
+                    if (isset($_GET['page']) && isset($_GET['token'])) {
+                        $controller->getUsersByPage($_GET['page'], $_GET['token']);
                     } else {
-                        $controller->getUsers();
+                        http_response_code(405);
+                        echo '405 Method Not Allowed';
+                        exit;
                     }
                 } else {
                     http_response_code(405);
@@ -33,8 +35,8 @@ class Router {
                 }
                 break;
             case 'PUT':
-                if ($controllerName === 'UsersController' && !empty($segments[1]) && is_numeric($segments[1])) {
-                    $controller->updateUser($segments[1]);
+                if ($controllerName === 'UserController') {
+                    $controller->updateUser();
                 } else {
                     http_response_code(405);
                     echo '405 Method Not Allowed';
@@ -53,8 +55,8 @@ class Router {
                 }
                 break;
             case 'DELETE':
-                if ($controllerName === 'LoginController') {
-                    $controller->checkIfCredentialsCorrect();
+                if ($controllerName === 'UserController') {
+                    $controller->deleteUser();
                 } else {
                     http_response_code(405);
                     echo '405 Method Not Allowed';
