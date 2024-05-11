@@ -14,7 +14,7 @@ class User extends DB {
         }
     }
 
-    public function getUserById($id) {
+    public function getUserById($id): array {
         try {
             $sql = "SELECT * FROM users WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);
@@ -105,7 +105,7 @@ class User extends DB {
         }
     }
 
-    public function deleteUser($id) {
+    public function deleteUser($id): bool {
         try {
             $sql = "DELETE FROM users WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);

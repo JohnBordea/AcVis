@@ -28,6 +28,22 @@ class Router {
                         echo '405 Method Not Allowed';
                         exit;
                     }
+                } else if ($controllerName === 'TableController') {
+                    if (isset($_GET['page']) && isset($_GET['token'])) {
+                        $controller->getSAGByPage($_GET['page'], $_GET['token']);
+                    } else {
+                        http_response_code(405);
+                        echo '405 Method Not Allowed';
+                        exit;
+                    }
+                } else if ($controllerName === 'ActorController') {
+                    if (isset($_GET['page']) && isset($_GET['token'])) {
+                        $controller->getActorByPage($_GET['page'], $_GET['token']);
+                    } else {
+                        http_response_code(405);
+                        echo '405 Method Not Allowed';
+                        exit;
+                    }
                 } else {
                     http_response_code(405);
                     echo '405 Method Not Allowed';
@@ -48,6 +64,8 @@ class Router {
                     $controller->checkIfCredentialsCorrect();
                 } else if ($controllerName === 'RegisterController') {
                     $controller->registerUser();
+                } else if ($controllerName === 'TableController') {
+                    $controller->createSAGTable();
                 } else {
                     http_response_code(405);
                     echo '405 Method Not Allowed';
