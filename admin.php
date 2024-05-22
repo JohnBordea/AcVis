@@ -34,6 +34,14 @@
                     <th class="name-content">Email</th>
                     <th class="action-content" colspan="2">Actions</th>
                 </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </table>
             <div class="data-box">
                 <div class="component centered">
@@ -55,22 +63,6 @@
                     -->
                     <th class="name-actor-content">Actor Name</th>
                     <th class="action-content">Actions</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>01-01-1900</td>
-                    <td class="edit small" onclick="">Edit</td>
-                    <td class="delete small" onclick="">Delete</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>01-01-1900</td>
-                    <td class="edit small" onclick="">Edit</td>
-                    <td class="delete small" onclick="">Delete</td>
                 </tr>
             </table>
             <div class="data-box">
@@ -94,16 +86,8 @@
                 <form class="data-box">
                     <h3>Create an Actor Entry</h3>
                     <div class="component">
-                        <label>Firstname</label>
-                        <input placeholder="Firstname" id="actor-firstname" value="" type="text">
-                    </div>
-                    <div class="component">
-                        <label>Lastname</label>
-                        <input placeholder="Lastname" id="actor-lastname" value="" type="text">
-                    </div>
-                    <div class="component">
-                        <label>Date of Birth</label>
-                        <input id="actor-date" value="" type="date">
+                        <label>Actor's Name</label>
+                        <input placeholder="Actor's Name" id="actor-name" value="" type="text">
                     </div>
                     <div class="component">
                         <button name="save" id="button-actor-save">Save</button>
@@ -157,7 +141,7 @@
                     </div>
                     <div class="component">
                         <label>Load File</label>
-                        <input placeholder="Load" id="sag-file-import-index" value="5" type="file">
+                        <input id="sag-file-import-index" type="file">
                     </div>
                     <div class="component" id="progress-bar" style="display: none">
                         <div class="progress-bar">

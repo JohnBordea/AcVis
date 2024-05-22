@@ -172,7 +172,7 @@ function getActorsByPage() {
                     cellToDelete.textContent = "Delete";
                     cellToDelete.className = "delete small";
                     cellToDelete.onclick = function() {
-                        console.log(this.parentNode.firstElementChild.textContent);
+                        deleteActorAdmin(this.parentNode.firstElementChild.textContent);
                     };
                     newRow.appendChild(cellId);
                     newRow.appendChild(cellName);
@@ -187,6 +187,20 @@ function getActorsByPage() {
         },
         null
     );
+}
+
+function deleteActorAdmin(actorId) {
+    sendRestAPIRequest(
+        "DELETE",
+        "./rest/api/actor/",
+        function() {
+            getActorsByPage();
+        },
+        JSON.stringify({
+            actor_id: actorId,
+            token: getCookie("token")
+        })
+    )
 }
 
 document.getElementById("button-actor-table-previous").addEventListener("click", (e) => {
@@ -380,6 +394,11 @@ document.getElementById("button-oscar-table-import").addEventListener("click", (
 
 })
 
+document,getElementById("").addEventListener("click", (e) => {
+    e.preventDefault();
+
+})
+
 function openProp(evt, adminProp) {
     var i, tab_content, tab_link;
 
@@ -409,5 +428,6 @@ document.getElementById("defaultOpen").click();
 
 document.addEventListener("DOMContentLoaded", function () {
     userPageIndex.value = 1;
+    actorPageIndex.value = 1;
     sagPageIndex.value = 1;
 })
