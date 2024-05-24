@@ -2,7 +2,7 @@
 require_once BASE_PATH . "/app/models/Database.php";
 class Actor extends DB {
 
-    public function getActors() {
+    public function getActors(): array | null {
         try {
             $sql = 'SELECT * FROM sag_actor WHERE id <> -1';
             $stmt = $this->pdo->query($sql);

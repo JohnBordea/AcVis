@@ -77,7 +77,9 @@ class Router {
                     $controller->deleteUser();
                 } else if ($controllerName === 'ActorController') {
                     $controller->deleteActor();
-                }  else {
+                } else if ($controllerName === 'TableController') {
+                    $controller->deleteSAG();
+                } else {
                     http_response_code(405);
                     echo '405 Method Not Allowed';
                     exit;

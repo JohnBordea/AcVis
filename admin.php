@@ -1,4 +1,19 @@
 <?php
+session_start();
+define('BASE_PATH', dirname(__DIR__));
+
+require_once "./assets/php/functions.php";
+
+
+if (!isset($_COOKIE["token"])) {
+    header("Location: ./index.html");
+    exit();
+} else {
+    if(!is_admin($_COOKIE["token"])) {
+        header("Location: ./user.php");
+        exit();
+    }
+}
 
 ?>
 
@@ -62,7 +77,7 @@
                         <th class="action-content" colspan="2">Actions</th>
                     -->
                     <th class="name-actor-content">Actor Name</th>
-                    <th class="action-content">Actions</th>
+                    <th class="action-content" colspan="2">Actions</th>
                 </tr>
             </table>
             <div class="data-box">

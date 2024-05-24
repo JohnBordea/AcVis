@@ -2,7 +2,7 @@
 require_once BASE_PATH . "/app/models/Database.php";
 class User extends DB {
 
-    public function getUsers() {
+    public function getUsers(): array | null {
         try {
             $sql = "SELECT * FROM users";
             $stmt = $this->pdo->query($sql);
@@ -14,7 +14,7 @@ class User extends DB {
         }
     }
 
-    public function getUserById($id): array {
+    public function getUserById($id): array | null{
         try {
             $sql = "SELECT * FROM users WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);
@@ -48,7 +48,7 @@ class User extends DB {
         }
     }
 
-    public function editUser($id, $firstname, $lastname, $username, $email) {
+    public function editUser($id, $firstname, $lastname, $username, $email): bool {
         try {
             $sql = "UPDATE users SET firstname = :firstname, lastname = :lastname, username = :username, email = :email WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);
@@ -69,7 +69,7 @@ class User extends DB {
         }
     }
 
-    public function editUserPassword($id, $password) {
+    public function editUserPassword($id, $password): bool {
         try {
             $sql = "UPDATE users SET password = :password WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);
@@ -87,7 +87,7 @@ class User extends DB {
         }
     }
 
-    public function editUserRole($id, $new_role) {
+    public function editUserRole($id, $new_role): bool {
         try {
             $sql = "UPDATE users SET role = :role WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);

@@ -82,4 +82,44 @@ class TableController {
         }
     }
 
+    public function deleteSAG() {
+        $json_data = file_get_contents('php://input');
+        $data = json_decode($json_data, true);
+        if ($data === null) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid JSON data']);
+            return;
+        }
+        $required_fields = ['token', 'sag_id', 'all'];
+        foreach ($required_fields as $field) {
+            if (!array_key_exists($field, $data)) {
+                http_response_code(400);
+                echo json_encode(['error' => 'Missing required field: ' . $field]);
+                return;
+            }
+        }
+
+        $is_admin = $this->userModel->checkUserIsAdmin($data['token']);
+
+        if(!$is_admin) {
+            http_response_code(204);
+            echo json_encode(['error' => "bad credentials"]);
+            return;
+        }
+
+        if ($data['all']) {
+            $success = $this->tableModel->deleteSAG();
+        } else {
+            $success = $this->tableModel->deleteSAGById($data['sag_id']);
+        }
+
+        if ($success) {
+            http_response_code(200);
+            echo json_encode(['message' => 'SAG deleted successfully']);
+        } else {
+            http_response_code(404);
+            echo json_encode(['error' => 'SAG not found']);
+        }
+    }
+
 }

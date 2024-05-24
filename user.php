@@ -1,3 +1,22 @@
+<?php
+session_start();
+define('BASE_PATH', dirname(__DIR__));
+
+require_once "./assets/php/functions.php";
+
+
+if (!isset($_COOKIE["token"])) {
+    header("Location: ./index.html");
+    exit();
+} else {
+    if(!is_logged_in($_COOKIE["token"])) {
+        header("Location: ./index.html");
+        exit();
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

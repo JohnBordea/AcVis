@@ -123,4 +123,35 @@ class Table extends DB {
             return -1;
         }
     }
+
+    public function deleteSAGById($id): bool {
+        try {
+            $sql = "DELETE FROM sag WHERE id = :id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            if($stmt->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Error deleting actors: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function deleteSAG(): bool {
+        try {
+            $sql = file_get_contents(BASE_PATH . "/sql_scripts/sag.sql");
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+
+            return true;
+        } catch (PDOException $e) {
+            echo "Error deleting actors: " . $e->getMessage();
+            return false;
+        }
+    }
 }

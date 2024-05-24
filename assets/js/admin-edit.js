@@ -168,6 +168,13 @@ function getActorsByPage() {
                     var cellName = document.createElement("td");
                     cellName.textContent = response["actor"][i]["actor_name"];
 
+                    var cellToEdit = document.createElement("td");
+                    cellToEdit.textContent = "Edit";
+                    cellToEdit.className = "edit small";
+                    cellToEdit.onclick = function() {
+                        editActorAdmin(this.parentNode.firstElementChild.textContent);
+                    };
+
                     var cellToDelete = document.createElement("td");
                     cellToDelete.textContent = "Delete";
                     cellToDelete.className = "delete small";
@@ -176,6 +183,7 @@ function getActorsByPage() {
                     };
                     newRow.appendChild(cellId);
                     newRow.appendChild(cellName);
+                    newRow.appendChild(cellToEdit);
                     newRow.appendChild(cellToDelete);
 
                     table.appendChild(newRow);
@@ -187,6 +195,10 @@ function getActorsByPage() {
         },
         null
     );
+}
+
+function editActorAdmin(actorId) {
+    window.location.replace("actor.html?id=" + String(actorId));
 }
 
 function deleteActorAdmin(actorId) {
@@ -219,6 +231,21 @@ document.getElementById("button-actor-table-next").addEventListener("click", (e)
     }
 })
 
+function deleteSAGAdmin(SAGId, all) {
+    sendRestAPIRequest(
+        "DELETE",
+        "./rest/api/table/",
+        function() {
+            getSAGByPage();
+        },
+        JSON.stringify({
+            sag_id: SAGId,
+            all: all,
+            token: getCookie("token")
+        })
+    )
+}
+
 //SAG Table Actions
 function getSAGByPage() {
     sendRestAPIRequest(
@@ -232,7 +259,6 @@ function getSAGByPage() {
             for (var i = 1; i < rows.length;) {
                 rows[i].parentNode.removeChild(rows[i]);
             }
-            console.log(response);
 
             if (response.hasOwnProperty("last_page") && response.hasOwnProperty("sag")) {
                 for (var i = 0; i < response["sag"].length; i++) {
@@ -261,8 +287,8 @@ function getSAGByPage() {
                     cellToDelete.textContent = "Delete";
                     cellToDelete.className = "delete small";
                     cellToDelete.onclick = function() {
-                        console.log(this.parentNode.firstElementChild.textContent);
-                        //deleteSAGAdmin(this.parentNode.firstElementChild.textContent);
+                        //console.log(this.parentNode.firstElementChild.textContent);
+                        deleteSAGAdmin(this.parentNode.firstElementChild.textContent, false);
                     };
                     newRow.appendChild(cellId);
                     newRow.appendChild(cellYear);
@@ -394,9 +420,14 @@ document.getElementById("button-oscar-table-import").addEventListener("click", (
 
 })
 
-document,getElementById("").addEventListener("click", (e) => {
+document.getElementById("button-oscar-table-export").addEventListener("click", (e) => {
     e.preventDefault();
 
+})
+
+document.getElementById("button-oscar-table-delete").addEventListener("click", (e) => {
+    e.preventDefault();
+    deleteSAGAdmin(-1, true);
 })
 
 function openProp(evt, adminProp) {
