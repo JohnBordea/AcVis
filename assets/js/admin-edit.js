@@ -4,6 +4,9 @@ const sagPageIndex = document.getElementById("oscar-table-page-index");
 var lastPageUser = false;
 var lastPageActor = false;
 var lastPageSAG = false;
+var pageCountUser = 0;
+var pageCountActor = 0;
+var pageCountSAG = 0;
 var uploadPackageMaxSize = 0;
 var uploadedPackage = 0;
 
@@ -77,6 +80,12 @@ function getUsersByPage() {
                 rows[i].parentNode.removeChild(rows[i]);
             }
 
+            if (response.hasOwnProperty("page_count")){
+                pageCountUser = response["page_count"];
+            } else {
+                pageCountUser = 0;
+            }
+
             if (response.hasOwnProperty("last_page") && response.hasOwnProperty("users")) {
                 for (var i = 0; i < response["users"].length; i++) {
                     var newRow = document.createElement("tr");
@@ -136,6 +145,17 @@ document.getElementById("button-user-table-previous").addEventListener("click", 
     }
 })
 
+document.getElementById('user-table-page-index').addEventListener('keyup', function onEvent(e) {
+    if (e.keyCode === 13) {
+        if(parseInt(userPageIndex.value) > pageCountUser){
+            userPageIndex.value = pageCountUser;
+        } else if(parseInt(userPageIndex.value) < 1){
+            userPageIndex.value = 1;
+        }
+        getUsersByPage();
+    }
+});
+
 document.getElementById("button-user-table-next").addEventListener("click", (e) => {
     e.preventDefault();
     if(!lastPageUser){
@@ -156,6 +176,12 @@ function getActorsByPage() {
             var rows = table.getElementsByTagName("tr");
             for (var i = 1; i < rows.length;) {
                 rows[i].parentNode.removeChild(rows[i]);
+            }
+
+            if (response.hasOwnProperty("page_count")){
+                pageCountActor = response["page_count"];
+            } else {
+                pageCountActor = 0;
             }
 
             if (response.hasOwnProperty("last_page") && response.hasOwnProperty("actor")) {
@@ -223,6 +249,17 @@ document.getElementById("button-actor-table-previous").addEventListener("click",
     }
 })
 
+document.getElementById('actor-table-page-index').addEventListener('keyup', function onEvent(e) {
+    if (e.keyCode === 13) {
+        if(parseInt(actorPageIndex.value) > pageCountActor){
+            actorPageIndex.value = pageCountActor;
+        } else if(parseInt(actorPageIndex.value) < 1){
+            actorPageIndex.value = 1;
+        }
+        getActorsByPage();
+    }
+});
+
 document.getElementById("button-actor-table-next").addEventListener("click", (e) => {
     e.preventDefault();
     if(!lastPageActor){
@@ -258,6 +295,12 @@ function getSAGByPage() {
             var rows = table.getElementsByTagName("tr");
             for (var i = 1; i < rows.length;) {
                 rows[i].parentNode.removeChild(rows[i]);
+            }
+
+            if (response.hasOwnProperty("page_count")){
+                pageCountSAG = response["page_count"];
+            } else {
+                pageCountSAG = 0;
             }
 
             if (response.hasOwnProperty("last_page") && response.hasOwnProperty("sag")) {
@@ -316,6 +359,17 @@ document.getElementById("button-oscar-table-previous").addEventListener("click",
         getSAGByPage();
     }
 })
+
+document.getElementById('oscar-table-page-index').addEventListener('keyup', function onEvent(e) {
+    if (e.keyCode === 13) {
+        if(parseInt(sagPageIndex.value) > pageCountSAG){
+            sagPageIndex.value = pageCountSAG;
+        } else if(parseInt(sagPageIndex.value) < 1){
+            sagPageIndex.value = 1;
+        }
+        getSAGByPage();
+    }
+});
 
 document.getElementById("button-oscar-table-next").addEventListener("click", (e) => {
     e.preventDefault();

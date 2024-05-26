@@ -20,3 +20,9 @@ CREATE TABLE IF NOT EXISTS session (
     token VARCHAR(255) NOT NULL,
     creation_date DATE NOT NULL
 );
+
+DROP TABLE IF EXISTS user_fav_actor;
+CREATE TABLE IF NOT EXISTS user_fav_actor (
+    id_user INT NOT NULL,
+    id_actor INT NOT NULL
+);

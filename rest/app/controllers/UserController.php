@@ -29,10 +29,10 @@ class UserController {
             $split_from = ($page - 1) * 20;
             $user_by_page = array_slice($users, $split_from, 20);
             http_response_code(200);
-            echo json_encode(['users' => $user_by_page, 'last_page' => count($users) <= ($page * 20)]);
+            echo json_encode(['users' => $user_by_page, 'last_page' => count($users) <= ($page * 20), 'page_count' => ceil(count($users) / 20)]);
         } else {
             http_response_code(204);
-            echo json_encode(['users' => [], 'last_page' => true]);
+            echo json_encode(['users' => [], 'last_page' => true, 'page_count' => 0]);
         }
     }
 

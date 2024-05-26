@@ -175,4 +175,21 @@ class User extends DB {
             return false;
         }
     }
+
+    public function checkUserIsLoggedIn($token): bool {
+        try {
+            $sql = "SELECT * FROM session s WHERE token = :token";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+            $stmt->execute();
+            if($stmt->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Error fetching user: " . $e->getMessage();
+            return false;
+        }
+    }
 }

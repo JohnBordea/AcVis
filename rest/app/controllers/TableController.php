@@ -75,10 +75,10 @@ class TableController {
             $split_from = ($page - 1) * 20;
             $sag_by_page = array_slice($sags, $split_from, 20);
             http_response_code(200);
-            echo json_encode(['sag' => $sag_by_page, 'last_page' => count($sags) <= ($page * 20)]);
+            echo json_encode(['sag' => $sag_by_page, 'last_page' => count($sags) <= ($page * 20), 'page_count' => ceil(count($sags) / 20)]);
         } else {
             http_response_code(204);
-            echo json_encode(['sag' => [], 'last_page' => true]);
+            echo json_encode(['sag' => [], 'last_page' => true, 'page_count' => 0]);
         }
     }
 

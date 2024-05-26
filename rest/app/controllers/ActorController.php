@@ -16,10 +16,10 @@ class ActorController {
             $split_from = ($page - 1) * 20;
             $actors_by_page = array_slice($actors, $split_from, 20);
             http_response_code(200);
-            echo json_encode(['actor' => $actors_by_page, 'last_page' => count($actors) <= ($page * 20)]);
+            echo json_encode(['actor' => $actors_by_page, 'last_page' => count($actors) <= ($page * 20), 'page_count' => ceil(count($actors) / 20)]);
         } else {
             http_response_code(204);
-            echo json_encode(['actor' => [], 'last_page' => true]);
+            echo json_encode(['actor' => [], 'last_page' => true, 'page_count' => 0]);
         }
     }
 

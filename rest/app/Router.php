@@ -44,6 +44,14 @@ class Router {
                         echo '405 Method Not Allowed';
                         exit;
                     }
+                } else if ($controllerName === 'ActorViewController') {
+                    if (isset($_GET['page'])) {
+                        $controller->getActorByPage($_GET['page']);
+                    } else {
+                        http_response_code(405);
+                        echo '405 Method Not Allowed';
+                        exit;
+                    }
                 } else {
                     http_response_code(405);
                     echo '405 Method Not Allowed';

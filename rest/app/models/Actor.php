@@ -14,6 +14,18 @@ class Actor extends DB {
         }
     }
 
+    public function getFavouriteActors($user_token): array | null {
+        try {
+            $sql = 'SELECT * FROM sag_actor WHERE id <> -1';
+            $stmt = $this->pdo->query($sql);
+            $sags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $sags;
+        } catch (PDOException $e) {
+            echo "Error fetching actors: " . $e->getMessage();
+            return null;
+        }
+    }
+
     public function deleteActor($id): bool {
         $success = $this->deleteSAGByActor($id);
         if(!$success) {
