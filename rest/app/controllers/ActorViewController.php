@@ -14,7 +14,14 @@ class ActorViewController {
         $split_from = ($page - 1) * 30;
         $actors_by_page = array_slice($actors, $split_from, 30);
 
-        foreach($actors_by_page as &$actor) {
+        http_response_code(200);
+        echo json_encode(['actor' => $actors_by_page, 'last_page' => count($actors) <= ($page * 30), 'page_count' => ceil(count($actors) / 30)]);
+    }
+
+    public function getActorImgById($id) {
+        $actor = $this->actorModel->getActorById($id);
+
+        if($actor) {
             $curl = curl_init();
 
             curl_setopt_array($curl, [
@@ -45,9 +52,13 @@ class ActorViewController {
                     $actor["img"] = "https://image.tmdb.org/t/p/w500" . $response["results"][0]["profile_path"];
                 }
             }
-        }
 
-        http_response_code(200);
-        echo json_encode(['actor' => $actors_by_page, 'last_page' => count($actors) <= ($page * 30), 'page_count' => ceil(count($actors) / 30)]);
+            http_response_code(200);
+            echo json_encode(['actor' => $actor]);
+
+        } else {
+            http_response_code(404);
+            echo json_encode(['error' => "no actor"]);
+        }
     }
 }

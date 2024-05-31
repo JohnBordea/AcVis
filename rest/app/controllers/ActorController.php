@@ -23,6 +23,40 @@ class ActorController {
         }
     }
 
+    public function addActor() {
+        $json_data = file_get_contents('php://input');
+        $data = json_decode($json_data, true);
+        if ($data === null) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid JSON data']);
+            return;
+        }
+
+        $required_fields = ['token', 'actor'];
+        foreach ($required_fields as $field) {
+            if (!array_key_exists($field, $data)) {
+                http_response_code(400);
+                echo json_encode(['error' => 'Missing required field: ' . $field]);
+                return;
+            }
+        }
+
+        $is_admin = $this->userModel->checkUserIsAdmin($data['token']);
+        if(!$is_admin) {
+            http_response_code(204);
+            echo json_encode(['error' => "bad credentials"]);
+            return;
+        }
+        if (!$this->actorModel->actorExists($data['actor'])) {
+            $this->actorModel->addActor($data['actor']);
+            http_response_code(201);
+            echo json_encode(['message' => 'User created successfully']);
+        } else {
+            http_response_code(202);
+            echo json_encode(['present' => true]);
+        }
+    }
+
     public function deleteActor() {
         $json_data = file_get_contents('php://input');
         $data = json_decode($json_data, true);
@@ -41,7 +75,6 @@ class ActorController {
         }
 
         $is_admin = $this->userModel->checkUserIsAdmin($data['token']);
-
         if(!$is_admin) {
             http_response_code(204);
             echo json_encode(['error' => "bad credentials"]);
@@ -52,10 +85,10 @@ class ActorController {
 
         if ($success) {
             http_response_code(200);
-            echo json_encode(['message' => 'User deleted successfully']);
+            echo json_encode(['message' => 'Actor deleted successfully']);
         } else {
             http_response_code(404);
-            echo json_encode(['error' => 'User not found']);
+            echo json_encode(['error' => 'Actor not found']);
         }
     }
 

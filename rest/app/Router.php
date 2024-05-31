@@ -29,8 +29,14 @@ class Router {
                         exit;
                     }
                 } else if ($controllerName === 'TableController') {
-                    if (isset($_GET['page']) && isset($_GET['token'])) {
-                        $controller->getSAGByPage($_GET['page'], $_GET['token']);
+                    if (isset($_GET['token'])) {
+                        if (isset($_GET['page'])) {
+                            $controller->getSAGByPage($_GET['page'], $_GET['token']);
+                        } else if (isset($_GET['create'])) {
+                            $controller->getSAGCreateData($_GET['token']);
+                        } else if (isset($_GET['filecsv'])) {
+                            $controller->getSAGFileCSV($_GET['token']);
+                        }
                     } else {
                         http_response_code(405);
                         echo '405 Method Not Allowed';
@@ -47,6 +53,16 @@ class Router {
                 } else if ($controllerName === 'ActorViewController') {
                     if (isset($_GET['page'])) {
                         $controller->getActorByPage($_GET['page']);
+                    } else if (isset($_GET['actor'])) {
+                        $controller->getActorImgById($_GET['actor']);
+                    } else {
+                        http_response_code(405);
+                        echo '405 Method Not Allowed';
+                        exit;
+                    }
+                } else if ($controllerName === 'ActorFavouriteController') {
+                    if (isset($_GET['page']) && isset($_GET['token'])) {
+                        $controller->getActorByPage($_GET['page'], $_GET['token']);
                     } else {
                         http_response_code(405);
                         echo '405 Method Not Allowed';
@@ -61,6 +77,8 @@ class Router {
             case 'PUT':
                 if ($controllerName === 'UserController') {
                     $controller->updateUser();
+                } else if ($controllerName === 'TableController') {
+                    $controller->addSAGEntry();
                 } else {
                     http_response_code(405);
                     echo '405 Method Not Allowed';
@@ -74,6 +92,8 @@ class Router {
                     $controller->registerUser();
                 } else if ($controllerName === 'TableController') {
                     $controller->createSAGTable();
+                } else if ($controllerName === 'ActorController') {
+                    $controller->addActor();
                 } else {
                     http_response_code(405);
                     echo '405 Method Not Allowed';

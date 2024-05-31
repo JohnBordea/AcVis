@@ -13,7 +13,7 @@ class ActorFavouriteController {
         $is_admin = $this->userModel->checkUserIsLoggedIn($user_token);
         if ($is_admin) {
             $actors = $this->actorModel->getFavouriteActors($user_token);
-            $page_count = 30;
+            $page_count = 10;
             $split_from = ($page - 1) * $page_count;
             $actors_by_page = array_slice($actors, $split_from, $page_count);
             http_response_code(200);

@@ -38,7 +38,9 @@ if (!isset($_COOKIE["token"])) {
   </nav>
     <main class="container">
         <div class="user-profile">
-            <img src="./assets/imgs/profile_icon.bmp" alt="Profile">
+            <!--
+                <img src="./assets/imgs/profile_icon.bmp" alt="Profile">
+            -->
             <form class="data-box">
                 <div class="component">
                     <label>Firstname</label>
@@ -67,6 +69,20 @@ if (!isset($_COOKIE["token"])) {
     <div class="container">
         <h2>Favorite Actors</h2>
         <div class="favorite" id="favorite-container">
+            <div class="tab-bar-content">
+                <table id="general-sag-table">
+                    <tr>
+                        <th class="name-content">Full Name</th>
+                        <th class="action-content small">Actions</th>
+                    </tr>
+                    <tr>
+                        <td style="display:none">id</td>
+                        <td>Name</td>
+                        <td class="delete small">Unfavorite</td>
+                    </tr>
+                </table>
+
+            </div>
         </div>
         <div class="data-box">
             <div class="component centered">

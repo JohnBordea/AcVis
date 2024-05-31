@@ -10,14 +10,17 @@ var pageCountSAG = 0;
 var uploadPackageMaxSize = 0;
 var uploadedPackage = 0;
 
+var addSAGYearMin = 0;
+var addSAGYearMax = 0;
+var addSAGCategory;
+var addSAGActor;
+var addSAGShow;
 
 async function sendRestAPIRequest(operation, url, onloadFunction, jsonData) {
     const xhr = new XMLHttpRequest();
     xhr.open(operation, url, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
     xhr.onload = onloadFunction;
-
     xhr.send(jsonData);
 }
 
@@ -268,6 +271,35 @@ document.getElementById("button-actor-table-next").addEventListener("click", (e)
     }
 })
 
+document.getElementById("button-actor-save").addEventListener("click", (e) => {
+    e.preventDefault();
+    var newActor = document.getElementById("new_actor-name").value;
+    sendRestAPIRequest(
+        "POST",
+        "./rest/api/actor/",
+        function() {
+            var response = JSON.parse(this.responseText);
+
+            var result = document.getElementById("add-entry-actor-result");
+            result.innerHTML = "";
+            var label = document.createElement('label');
+
+            if (response.hasOwnProperty("present")) {
+                label.textContent = "Entry already existing";
+                result.appendChild(label);
+            } else if (response.hasOwnProperty("message")) {
+                label.textContent = "Entry added";
+                result.appendChild(label);
+            }
+            getActorsByPage();
+        },
+        JSON.stringify({
+            actor: newActor,
+            token: getCookie("token")
+        })
+    )
+})
+
 function deleteSAGAdmin(SAGId, all) {
     sendRestAPIRequest(
         "DELETE",
@@ -297,7 +329,7 @@ function getSAGByPage() {
                 rows[i].parentNode.removeChild(rows[i]);
             }
 
-            if (response.hasOwnProperty("page_count")){
+            if (response.hasOwnProperty("page_count")) {
                 pageCountSAG = response["page_count"];
             } else {
                 pageCountSAG = 0;
@@ -347,6 +379,62 @@ function getSAGByPage() {
             } else {
                 lastPageSAG = true;
             }
+        },
+        null
+    );
+}
+
+function getCreateSAGEntryData() {
+    sendRestAPIRequest(
+        "GET",
+        "./rest/api/table/?create=&token=" + getCookie("token"),
+        function() {
+            var response = JSON.parse(this.responseText);
+
+            if (response.hasOwnProperty("year_min")) {
+                addSAGYearMin = response["year_min"];
+                document.getElementById("entry-sag-year").value = addSAGYearMin;
+            }
+            if (response.hasOwnProperty("year_current")) {
+                addSAGYearMax = response["year_current"];
+                document.getElementById("entry-sag-year").value = addSAGYearMax;
+            }
+            if (response.hasOwnProperty("category")) {
+                addSAGCategory = response["category"];
+                var selectBox = document.getElementById("entry-sag-category");
+                selectBox.innerHTML = "";
+                for(let i = 0; i < addSAGCategory.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = addSAGCategory[i]["category_name"];
+                    option.value = addSAGCategory[i]['id'];
+                    selectBox.add(option);
+                }
+            }
+            if (response.hasOwnProperty("actor")) {
+                addSAGActor = response["actor"];
+                var selectBox = document.getElementById("entry-sag-actor");
+                selectBox.innerHTML = "";
+                for(let i = 0; i < addSAGActor.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = addSAGActor[i]["actor_name"];
+                    option.value = addSAGActor[i]['id'];
+                    selectBox.add(option);
+                }
+            }
+            if (response.hasOwnProperty("show")) {
+                addSAGShow = response["show"];
+                var selectBox = document.getElementById("entry-sag-show");
+                selectBox.innerHTML = "";
+                for(let i = 0; i < addSAGShow.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = addSAGShow[i]["show_name"];
+                    option.value = addSAGShow[i]['id'];
+                    selectBox.add(option);
+                }
+            }
+            var checkBox = document.getElementById("entry-sag-win");
+            checkBox.checked = false;
+            document.getElementById("add-entry-sag-result").innerHTML = "";
         },
         null
     );
@@ -474,14 +562,75 @@ document.getElementById("button-oscar-table-import").addEventListener("click", (
 
 })
 
-document.getElementById("button-oscar-table-export").addEventListener("click", (e) => {
+document.getElementById("button-oscar-table-export").addEventListener("click", async (e) => {
     e.preventDefault();
-
+    await fetch(
+        "./rest/api/table?filecsv=&token=" + getCookie("token"),
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    ).then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.blob();
+    }).then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'file.csv';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }).catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
 })
 
 document.getElementById("button-oscar-table-delete").addEventListener("click", (e) => {
     e.preventDefault();
     deleteSAGAdmin(-1, true);
+})
+
+document.getElementById("button-entry-sag-save").addEventListener("click", (e) => {
+    e.preventDefault();
+    var year = document.getElementById("entry-sag-year").value;
+    var category = document.getElementById("entry-sag-category").value;
+    var actor = document.getElementById("entry-sag-actor").value;
+    var show = document.getElementById("entry-sag-show").value;
+    var win = document.getElementById("entry-sag-win").checked;
+    sendRestAPIRequest(
+        "PUT",
+        "./rest/api/table/",
+        function() {
+            var response = JSON.parse(this.responseText);
+
+            var result = document.getElementById("add-entry-sag-result");
+            result.innerHTML = "";
+            var label = document.createElement('label');
+
+            if (response.hasOwnProperty("present")) {
+                label.textContent = "Entry already existing";
+                result.appendChild(label);
+            } else if (response.hasOwnProperty("message")) {
+                label.textContent = "Entry added";
+                result.appendChild(label);
+            }
+            getActorsByPage();
+        },
+        JSON.stringify({
+            year:     year,
+            category: category,
+            actor:    actor,
+            show:     show,
+            win:      win,
+            token:    getCookie("token")
+        })
+    );
 })
 
 function openProp(evt, adminProp) {
@@ -506,6 +655,7 @@ function openProp(evt, adminProp) {
         getActorsByPage();
     } else if (adminProp == "menu-oscar") {
         getSAGByPage();
+        getCreateSAGEntryData();
     }
 }
 

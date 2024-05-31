@@ -98,16 +98,18 @@ if (!isset($_COOKIE["token"])) {
             -->
             <hr>
             <div class="create-entry">
-                <form class="data-box">
+                <div class="data-box">
                     <h3>Create an Actor Entry</h3>
+                    <div class="component" id="add-entry-actor-result">
+                    </div>
                     <div class="component">
                         <label>Actor's Name</label>
-                        <input placeholder="Actor's Name" id="actor-name" value="" type="text">
+                        <input placeholder="Actor's Name" id="new_actor-name" value="" type="text">
                     </div>
                     <div class="component">
                         <button name="save" id="button-actor-save">Save</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
         <div class="tab-bar-content" id="menu-oscar">
@@ -175,34 +177,33 @@ if (!isset($_COOKIE["token"])) {
             <div class="create-entry">
                 <form class="data-box">
                     <h3>Create an SAG Entry</h3>
+                    <div class="component" id="add-entry-sag-result">
+                    </div>
                     <div class="component">
                         <label>Year</label>
-                        <input placeholder="Year" id="oscar-year" value="2000" type="number">
+                        <input placeholder="Year" id="entry-sag-year" value="2000" type="number">
                     </div>
                     <div class="component">
                         <label>Category</label>
-                        <select id="oscar-category" name="Category">
-                            <option value="category1">Category1</option>
-                            <option value="category2">Category2</option>
-                            <option value="category3">Category3</option>
-                            <option value="category4">Category4</option>
+                        <select id="entry-sag-category" name="Category">
                         </select>
                     </div>
                     <div class="component">
                         <label>Actor</label>
-                        <select id="oscar-actor" name="Actor">
-                            <option value="actor1">Actor1</option>
-                            <option value="actor2">Actor2</option>
-                            <option value="actor3">Actor3</option>
-                            <option value="actor4">Actor4</option>
+                        <select id="entry-sag-actor" name="Actor">
+                        </select>
+                    </div>
+                    <div class="component">
+                        <label>Show</label>
+                        <select id="entry-sag-show" name="Show">
                         </select>
                     </div>
                     <div class="component">
                         <label>Winning Nominalization</label>
-                        <input id="oscar-win" value="" type="checkbox" class="form-checkbox">
+                        <input id="entry-sag-win" type="checkbox" class="form-checkbox">
                     </div>
                     <div class="component">
-                        <button name="save" id="button-oscar-save">Save</button>
+                        <button name="save" id="button-entry-sag-save">Save</button>
                     </div>
                 </form>
             </div>

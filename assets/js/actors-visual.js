@@ -65,8 +65,9 @@ function setActors() {
                     divTextElement.classList.add("f-name");
 
                     var imgElement = document.createElement('img');
-                    imgElement.src = response["actor"][i]["img"];
-                    imgElement.alt = "Actor";
+                    imgElement.id = "actor" + String(response["actor"][i]["id"]);
+                    //imgElement.src = response["actor"][i]["img"];
+                    imgElement.alt = "actor" + String(response["actor"][i]["id"]);
 
                     var aElement = document.createElement('a');
                     aElement.classList.add("invisible-link");
@@ -79,6 +80,23 @@ function setActors() {
                     divContainerElement.classList.add("f-item");
 
                     actorContainer.appendChild(divContainerElement);
+                }
+
+                for (var i = 0; i < response["actor"].length; i++) {
+                    sendRestAPIRequest(
+                        "GET",
+                        "./rest/api/actor/view/?actor=" + response["actor"][i]["id"],
+                        function() {
+                            var response = JSON.parse(this.responseText);
+
+                            if (response.hasOwnProperty("actor")) {
+                                var actorIMG = document.getElementById("actor" + String(response["actor"]["id"]));
+                                actorIMG.src = response["actor"]["img"];
+                            }
+                        },
+                        null
+                    )
+
                 }
             }
         },
