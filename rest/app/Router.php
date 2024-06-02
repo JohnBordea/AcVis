@@ -43,8 +43,12 @@ class Router {
                         exit;
                     }
                 } else if ($controllerName === 'ActorController') {
-                    if (isset($_GET['page']) && isset($_GET['token'])) {
-                        $controller->getActorByPage($_GET['page'], $_GET['token']);
+                    if (isset($_GET['token'])) {
+                        if (isset($_GET['page'])) {
+                            $controller->getActorByPage($_GET['page'], $_GET['token']);
+                        } else {
+                            $controller->getActors($_GET['token']);
+                        }
                     } else {
                         http_response_code(405);
                         echo '405 Method Not Allowed';
@@ -55,6 +59,18 @@ class Router {
                         $controller->getActorByPage($_GET['page']);
                     } else if (isset($_GET['actor'])) {
                         $controller->getActorImgById($_GET['actor']);
+                    } else {
+                        http_response_code(405);
+                        echo '405 Method Not Allowed';
+                        exit;
+                    }
+                } else if ($controllerName === 'ActorStatController') {
+                    if (isset($_GET['id'])) {
+                        if (isset($_GET['year'])) {
+                            $controller->getActorYearStat($_GET['id'], $_GET['year']);
+                        } else {
+                            $controller->getActorStat($_GET['id']);
+                        }
                     } else {
                         http_response_code(405);
                         echo '405 Method Not Allowed';

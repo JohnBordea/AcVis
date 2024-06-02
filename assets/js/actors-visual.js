@@ -1,7 +1,7 @@
-const actorContainer = document.getElementById("actor-container");
-const actorPageIndex = document.getElementById("actor-page-index");
-var lastPageActor = false;
-var pageCountActor = 0;
+const actorSelect = document.getElementById("entry-actor");
+const actorChart =  document.getElementById("actor-chart");
+var actorList;
+var chart;
 
 async function sendRestAPIRequest(operation, url, onloadFunction, jsonData) {
     const xhr = new XMLHttpRequest();
@@ -13,102 +13,145 @@ async function sendRestAPIRequest(operation, url, onloadFunction, jsonData) {
     xhr.send(jsonData);
 }
 
-function addActorIcon(name, img, id, container) {
-    var h3Element = document.createElement('h3');
-    h3Element.textContent = name;
-
-    var divTextElement = document.createElement('div');
-    divTextElement.appendChild(h3Element);
-    divTextElement.classList.add("f-name");
-
-    var imgElement = document.createElement('img');
-    imgElement.src = img;
-    imgElement.alt = "Actor";
-
-    var aElement = document.createElement('a');
-    aElement.classList.add("invisible-link");
-    if (id != null) {
-        aElement.href = "./actor.html?id=" + id;
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
-    aElement.appendChild(imgElement);
-    aElement.appendChild(divTextElement);
-
-    var divContainerElement = document.createElement('div');
-    divContainerElement.appendChild(aElement);
-    divContainerElement.classList.add("f-item");
-
-    container.appendChild(divContainerElement);
+    return "";
 }
 
-function setActors() {
+function getActors() {
     sendRestAPIRequest(
         "GET",
-        "./rest/api/actor/view/?page=" + actorPageIndex.value,
+        "./rest/api/actor/?token=" + getCookie("token"),
+        function() {
+            var response = JSON.parse(this.responseText);
+            if (response.hasOwnProperty("actor")) {
+                actorList = response["actor"];
+                actorSelect.innerHTML = "";
+                for(let i = 0; i < actorList.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = actorList[i]["actor_name"];
+                    option.value = actorList[i]['id'];
+                    actorSelect.add(option);
+                }
+                actorSelect.selectedIndex = 241;
+                getActorChartData();
+            }
+        },
+        null
+    )
+}
+
+function getActorChartData() {
+    sendRestAPIRequest(
+        "GET",
+        "./rest/api/actor/stat/?id=" + actorSelect.value,
         function() {
             var response = JSON.parse(this.responseText);
 
-            actorContainer.innerHTML = "";
-
-            if (response.hasOwnProperty("page_count")){
-                pageCountActor = response["page_count"];
-            } else {
-                pageCountActor = 0;
+            var xValues = [];
+            if (response.hasOwnProperty("years")) {
+                xValues = response["years"];
+            }
+            var yValues = [];
+            if (response.hasOwnProperty("total")) {
+                yValues = response["total"];
             }
 
-            if (response.hasOwnProperty("actor")) {
-                for (var i = 0; i < response["actor"].length; i++) {
-                    var h3Element = document.createElement('h3');
-                    h3Element.textContent = response["actor"][i]["actor_name"];
+            if(chart) {
+                chart.destroy();
+            }
 
-                    var divTextElement = document.createElement('div');
-                    divTextElement.appendChild(h3Element);
-                    divTextElement.classList.add("f-name");
+            chart = new Chart("actor-chart", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        fill: false,
+                        lineTension: 0,
+                        backgroundColor: "rgba(0,0,255,1.0)",
+                        borderColor: "rgba(0,0,255,0.1)",
+                        data: yValues
+                    }]
+                },
+                options: {
+                    legend: {display: false},
+                    scales: {
+                        yAxes: [
+                            {
+                                ticks: {
+                                    min: 0
+                                }
+                            }
+                        ],
+                    }
+                }
+            });
+        },
+        null
+    )
+}
 
-                    var imgElement = document.createElement('img');
-                    imgElement.id = "actor" + String(response["actor"][i]["id"]);
-                    //imgElement.src = response["actor"][i]["img"];
-                    imgElement.alt = "actor" + String(response["actor"][i]["id"]);
+actorSelect.addEventListener("change", function() {
+    getActorChartData();
+})
 
-                    var aElement = document.createElement('a');
-                    aElement.classList.add("invisible-link");
-                    aElement.href = "./actor.html?id=" + response["actor"][i]["id"];
-                    aElement.appendChild(imgElement);
-                    aElement.appendChild(divTextElement);
+function getActorYearStat(year) {
+    sendRestAPIRequest(
+        "GET",
+        "./rest/api/actor/stat/?id=" + actorSelect.value + "&year=" + year,
+        function() {
+            var response = JSON.parse(this.responseText);
 
-                    var divContainerElement = document.createElement('div');
-                    divContainerElement.appendChild(aElement);
-                    divContainerElement.classList.add("f-item");
-
-                    actorContainer.appendChild(divContainerElement);
+            if (response.hasOwnProperty("stat")) {
+                var table = document.getElementById("general-result-table");
+                var rows = table.getElementsByTagName("tr");
+                for (var i = 1; i < rows.length;) {
+                    rows[i].parentNode.removeChild(rows[i]);
                 }
 
-                for (var i = 0; i < response["actor"].length; i++) {
-                    sendRestAPIRequest(
-                        "GET",
-                        "./rest/api/actor/view/?actor=" + response["actor"][i]["id"],
-                        function() {
-                            var response = JSON.parse(this.responseText);
+                for (var i = 0; i < response["stat"].length; i++) {
+                    var newRow = document.createElement("tr");
 
-                            if (response.hasOwnProperty("actor")) {
-                                var actorIMG = document.getElementById("actor" + String(response["actor"]["id"]));
-                                actorIMG.src = response["actor"]["img"];
-                            }
-                        },
-                        null
-                    )
+                    var cellCategory = document.createElement("td");
+                    cellCategory.textContent = response["stat"][i]["category_name"];
 
+                    var cellShow = document.createElement("td");
+                    cellShow.textContent = response["stat"][i]["show_name"];
+
+                    var cellResult = document.createElement("td");
+                    cellResult.textContent = response["stat"][i]["result"];
+
+                    newRow.appendChild(cellCategory);
+                    newRow.appendChild(cellShow);
+                    newRow.appendChild(cellResult);
+
+                    table.appendChild(newRow);
                 }
             }
         },
         null
-    );
+    )
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    actorPageIndex.value = 1;
-    actorContainer.innerHTML = "";
-    for(let i = 0; i < 30; i++) {
-        addActorIcon("Actor " + String(i + 1), "./assets/imgs/actor-icon.png", null, actorContainer);
+actorChart.onclick = function (evt) {
+    const points = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true);
+
+    if (points.length) {
+        getActorYearStat(chart.data.labels[points[0]._index]);
     }
-    setActors();
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+    getActors();
 })

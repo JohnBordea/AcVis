@@ -24,11 +24,11 @@ class Table extends DB {
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
                 return $data["id"];
             } else {
-                return -1;
+                return -2;
             }
         } catch (PDOException $e) {
             echo "Error fetching category: " . $e->getMessage();
-            return -2;
+            return -3;
         }
     }
 
@@ -55,11 +55,11 @@ class Table extends DB {
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
                 return $data["id"];
             } else {
-                return -1;
+                return -2;
             }
         } catch (PDOException $e) {
             echo "Error fetching actor: " . $e->getMessage();
-            return -2;
+            return -3;
         }
     }
 
@@ -86,11 +86,11 @@ class Table extends DB {
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
                 return $data["id"];
             } else {
-                return -1;
+                return -2;
             }
         } catch (PDOException $e) {
             echo "Error fetching show: " . $e->getMessage();
-            return -2;
+            return -3;
         }
     }
 

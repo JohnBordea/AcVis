@@ -70,7 +70,7 @@ if (!isset($_COOKIE["token"])) {
         <h2>Favorite Actors</h2>
         <div class="favorite" id="favorite-container">
             <div class="tab-bar-content">
-                <table id="general-sag-table">
+                <table id="general-fav-table">
                     <tr>
                         <th class="name-content">Full Name</th>
                         <th class="action-content small">Actions</th>
@@ -81,7 +81,6 @@ if (!isset($_COOKIE["token"])) {
                         <td class="delete small">Unfavorite</td>
                     </tr>
                 </table>
-
             </div>
         </div>
         <div class="data-box">

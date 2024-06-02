@@ -88,6 +88,14 @@ FavoritePageButtonIndexRight.addEventListener("click", (e) => {
     }
 })
 
+function deleteFavActor(id) {
+    console.log("Delete Actor" + String(id));
+}
+
+function goToActor(id) {
+    console.log("Go To Actor" + String(id));
+}
+
 function getFavouriteActorByPage() {
     sendRestAPIRequest(
         "GET",
@@ -95,6 +103,46 @@ function getFavouriteActorByPage() {
         function() {
             var response = JSON.parse(this.responseText);
             console.log(response);
+            var table = document.getElementById("general-fav-table");
+            var rows = table.getElementsByTagName("tr");
+            for (var i = 1; i < rows.length;) {
+                rows[i].parentNode.removeChild(rows[i]);
+            }
+            if (response.hasOwnProperty("page_count")) {
+                pageCount = response["page_count"];
+            } else {
+                pageCount = 0;
+            }
+            if (response.hasOwnProperty("last_page") && response.hasOwnProperty("actor")) {
+                for (var i = 0; i < response["actor"].length; i++) {
+                    var newRow = document.createElement("tr");
+
+                    var cellId = document.createElement("td");
+                    cellId.textContent = response["actor"][i]["actor_id"];
+                    cellId.style.display = "none";
+
+                    var cellName = document.createElement("td");
+                    cellName.textContent = response["actor"][i]["actor_name"];
+                    cellName.onclick = function() {
+                        goToActor(this.parentNode.firstElementChild.textContent, false);
+                    };
+
+                    var cellToDelete = document.createElement("td");
+                    cellToDelete.textContent = "Unfavorite";
+                    cellToDelete.className = "delete small";
+                    cellToDelete.onclick = function() {
+                        deleteFavActor(this.parentNode.firstElementChild.textContent, false);
+                    };
+                    newRow.appendChild(cellId);
+                    newRow.appendChild(cellName);
+                    newRow.appendChild(cellToDelete);
+
+                    table.appendChild(newRow);
+                }
+                lastPage = response["last_page"];
+            } else {
+                lastPage = true;
+            }
         },
         null
     );

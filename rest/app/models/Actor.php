@@ -30,19 +30,75 @@ class Actor extends DB {
 
     public function getFavouriteActors($user_token): array | null {
         try {
-            $sql = 'SELECT sag_actor.id AS actor_id, sag_actor.actor_name 
-                FROM session 
-                JOIN users ON session.id_user = users.id 
-                JOIN user_fav_actor ON users.id = user_fav_actor.id_user 
-                JOIN sag_actor ON user_fav_actor.id_actor = sag_actor.id 
+            $sql = 'SELECT sag_actor.id AS actor_id, sag_actor.actor_name
+                FROM session
+                JOIN users ON session.id_user = users.id
+                JOIN user_fav_actor ON users.id = user_fav_actor.id_user
+                JOIN sag_actor ON user_fav_actor.id_actor = sag_actor.id
                 WHERE session.token = :session_token';
 
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':session_token', $user_token, PDO::PARAM_STR);
-        $stmt->execute();
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':session_token', $user_token, PDO::PARAM_STR);
+            $stmt->execute();
 
-        $sags = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $sags;
+            $sags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $sags;
+        } catch (PDOException $e) {
+            echo "Error fetching actors: " . $e->getMessage();
+            return null;
+        }
+    }
+
+    public function getActorStat($actor_id): array | null {
+        try {
+            $sql = 'SELECT
+                        year_of_competition,
+                        SUM(CASE WHEN result = "yes" THEN 1 ELSE 0 END) AS yes_count,
+                        COUNT(*) AS total_count
+                    FROM
+                        sag
+                    WHERE
+                        actor_id = :actor_id
+                    GROUP BY
+                        year_of_competition
+                    ORDER BY
+                        year_of_competition';
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':actor_id', $actor_id, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $stat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stat;
+        } catch (PDOException $e) {
+            echo "Error fetching actors: " . $e->getMessage();
+            return null;
+        }
+    }
+
+    public function getActorYearStat($actor_id, $year): array | null {
+        try {
+            $sql = 'SELECT
+                        sc.category_name,
+                        ss.show_name,
+                        s.result
+                    FROM
+                        sag s
+                    JOIN
+                        sag_category sc ON s.category_id = sc.id
+                    JOIN
+                        sag_show ss ON s.show_id = ss.id
+                    WHERE
+                        s.actor_id = :actor_id
+                        AND s.year_of_competition = :year';
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':actor_id', $actor_id, PDO::PARAM_INT);
+            $stmt->bindParam(':year', $year, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $stat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stat;
         } catch (PDOException $e) {
             echo "Error fetching actors: " . $e->getMessage();
             return null;
