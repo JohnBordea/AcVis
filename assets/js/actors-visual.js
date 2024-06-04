@@ -1,5 +1,6 @@
 const actorSelect = document.getElementById("entry-actor");
 const actorChart =  document.getElementById("actor-chart");
+const viewActor = document.getElementById("view-actor");
 var actorList;
 var chart;
 
@@ -44,7 +45,7 @@ function getActors() {
                     option.value = actorList[i]['id'];
                     actorSelect.add(option);
                 }
-                actorSelect.selectedIndex = 241;
+                actorSelect.selectedIndex = 0;
                 getActorChartData();
             }
         },
@@ -63,9 +64,13 @@ function getActorChartData() {
             if (response.hasOwnProperty("years")) {
                 xValues = response["years"];
             }
-            var yValues = [];
+            var totalValues = [];
             if (response.hasOwnProperty("total")) {
-                yValues = response["total"];
+                totalValues = response["total"];
+            }
+            var winValues = [];
+            if (response.hasOwnProperty("wins")) {
+                winValues = response["wins"];
             }
 
             if(chart) {
@@ -77,26 +82,37 @@ function getActorChartData() {
                 data: {
                     labels: xValues,
                     datasets: [{
-                        fill: false,
-                        lineTension: 0,
                         backgroundColor: "rgba(0,0,255,1.0)",
                         borderColor: "rgba(0,0,255,0.1)",
-                        data: yValues
+                        data: totalValues,
+                        label: "Nominalizari"
+                    },{
+                        backgroundColor: "green",
+                        borderColor: "green",
+                        data: winValues,
+                        label: "Victorii"
                     }]
                 },
+                responsive: true,
                 options: {
                     legend: {display: false},
                     scales: {
-                        yAxes: [
-                            {
-                                ticks: {
-                                    min: 0
-                                }
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true
+                        },
+                        yAxes: [{
+                            ticks: {
+                                min: 0
                             }
-                        ],
+                        }],
                     }
                 }
             });
+
+            getActorYearStat(chart.data.labels[0]);
         },
         null
     )
@@ -151,6 +167,19 @@ actorChart.onclick = function (evt) {
         getActorYearStat(chart.data.labels[points[0]._index]);
     }
 };
+
+viewActor.onclick = function (evt) {
+    window.location.href = "actor.php?id=" + actorSelect.value;
+}
+
+document.getElementById("view-actor-data-img").addEventListener("click", function() {
+    console.log(100);
+    var a = document.createElement('a');
+    a.href = chart.toBase64Image();
+    a.download = 'my_file_name.png';
+
+    a.click();
+})
 
 document.addEventListener("DOMContentLoaded", function () {
     getActors();

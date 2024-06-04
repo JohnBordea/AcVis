@@ -118,3 +118,7 @@ a.invisible-link {
     color: inherit;
     text-decoration: inherit;
 }
+
+.bottom {
+  margin-bottom: 200px;
+}

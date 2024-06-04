@@ -63,14 +63,6 @@ button.enabled:hover {
     background-color: #01b4e4;
     transition: all 300ms ease-in-out;
 }
-button.disabled {
-    background-color: #262626;
-    transition: all 50ms ease-in-out;
-}
-button.disabled:hover {
-    background-color: #888888;
-    transition: all 300ms ease-in-out;
-}
 .favorite {
     display: flex;
     flex-wrap: wrap;
@@ -222,4 +214,29 @@ table .delete:hover,
 table .small {
     width: 10%;
     min-width: 100px;
+}
+.container .side {
+    width: 30%;
+    float: left;
+}
+.container .middle {
+    width: 60%;
+}
+.container.data{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+button.disabled {
+    background-color: #262626;
+    transition: all 50ms ease-in-out;
+}
+button.disabled:hover {
+    background-color: #888888;
+    transition: all 300ms ease-in-out;
 }

@@ -4,7 +4,6 @@ define('BASE_PATH', dirname(__DIR__));
 
 require_once "./assets/php/functions.php";
 
-
 if (!isset($_COOKIE["token"])) {
     header("Location: ./index.html");
     exit();
@@ -14,9 +13,7 @@ if (!isset($_COOKIE["token"])) {
         exit();
     }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,20 +25,35 @@ if (!isset($_COOKIE["token"])) {
     <script defer src="assets/js/user-self-edit.js"></script>
 </head>
 <body>
-  <nav>
-    <ul class="topnav">
-      <li><a href="Main.html">Main</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="user.html" class="active">Profile</a></li>
-      <li><a href="">Logout</a></li>
-    </ul>
-  </nav>
+    <nav>
+        <ul class="topnav">
+            <li><a href="main.php">Main</a></li>
+            <?php
+            if (isset($_COOKIE["token"]) && is_logged_in($_COOKIE["token"])) {
+                echo '<li><a class="active">Profile</a></li>';
+                if(is_admin($_COOKIE["token"])) {
+                    echo '<li><a href="admin.php">Admin</a></li>';
+                }
+            }
+            ?>
+            <li><a href="actors.php">Actors</a></li>
+            <li><a href="about.php">About</a></li>
+            <?php
+            if (isset($_COOKIE["token"]) && is_logged_in($_COOKIE["token"])) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+            }
+            ?>
+        </ul>
+    </nav>
     <main class="container">
         <div class="user-profile">
             <!--
                 <img src="./assets/imgs/profile_icon.bmp" alt="Profile">
             -->
-            <form class="data-box">
+            <div class="data-box">
+                <div class="component">
+                    <label id="user-insert-error"></label>
+                </div>
                 <div class="component">
                     <label>Firstname</label>
                     <input placeholder="Firstname" id="user-firstname" value="Firstname" type="text" readonly>
@@ -62,7 +74,7 @@ if (!isset($_COOKIE["token"])) {
                     <button name="edit" id="button-edit" class="enabled">Edit</button>
                     <button name="save" id="button-save" class="disabled" disabled>Save</button>
                 </div>
-            </form>
+            </div>
         </div>
     </main>
     <hr>
@@ -83,7 +95,7 @@ if (!isset($_COOKIE["token"])) {
                 </table>
             </div>
         </div>
-        <div class="data-box">
+        <div class="data-box bottom">
             <div class="component centered">
                 <button id="button-favorite-previous" class="page-index previous">Previous</button>
                 <input placeholder="Page" id="favorite-page-index" type="number" value="1" class="favorite-page">

@@ -55,6 +55,7 @@ class TableController {
                         $show_id = $this->tableModel->addShow($show);
                     }
                 }
+
                 $result = $this->tableModel->addSAG($year, $category_id, $actor_id, $show_id, $csv_data[4] ? "yes" : 'no');
                 if($result == -1) {
                     http_response_code(404);
@@ -95,7 +96,14 @@ class TableController {
                 $this->tableModel->updateSAGEntryToLose($data['year'], $data['category']);
             }
 
-            $result = $this->tableModel->addSAG($data['year'], $data['category'], $data['actor'], $data['show'], $data['win'] ? "yes" : 'no');
+            //Check if data already in place
+            $in_place = $this->tableModel->isSAGInDB($data['year'], $data['category'], $data['actor'], $data['show']);
+
+            if ($in_place) {
+                $result = $this->tableModel->updateSAG($data['year'], $data['category'], $data['actor'], $data['show'], $data['win'] ? "yes" : 'no');
+            } else {
+                $result = $this->tableModel->addSAG($data['year'], $data['category'], $data['actor'], $data['show'], $data['win'] ? "yes" : 'no');
+            }
             if($result == -1) {
                 http_response_code(404);
                 echo json_encode(['error' => "something went wrong"]);

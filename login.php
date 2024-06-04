@@ -1,3 +1,16 @@
+<?php
+session_start();
+define('BASE_PATH', dirname(__DIR__));
+
+require_once "./assets/php/functions.php";
+
+if (isset($_COOKIE["token"])) {
+    if(is_logged_in($_COOKIE["token"])) {
+        header("Location: ./user.php");
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,9 +27,22 @@
 <body>
     <nav>
         <ul class="topnav">
-        <li><a href="register.php">Register</a></li>
-        <li><a href="Main.html">Main</a></li>
-        <li><a href="about.html">About</a></li>
+            <li><a href="main.php">Main</a></li>
+            <?php
+            if (isset($_COOKIE["token"]) && is_logged_in($_COOKIE["token"])) {
+                echo '<li><a href="user.php">Profile</a></li>';
+                if(is_admin($_COOKIE["token"])) {
+                    echo '<li><a class="active">Admin</a></li>';
+                }
+            }
+            ?>
+            <li><a href="actors.php">Actors</a></li>
+            <li><a href="about.php">About</a></li>
+            <?php
+            if (isset($_COOKIE["token"]) && is_logged_in($_COOKIE["token"])) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+            }
+            ?>
         </ul>
     </nav>
 
@@ -35,7 +61,7 @@
             <input type="password" name="pwd" placeholder="Password" id="password-field">
             <button type="submit" name="login-submit" id="login-form-submit">Login</button>
             <div class="text">
-                <a href="restore_account.html">Forgot Password?</a>
+                <a href="restore_account.php">Forgot Password?</a>
             </div>
             <hr>
             <div class="text">

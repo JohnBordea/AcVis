@@ -6,7 +6,7 @@ require_once "./assets/php/functions.php";
 
 
 if (!isset($_COOKIE["token"])) {
-    header("Location: ./index.html");
+    header("Location: ./index.php");
     exit();
 } else {
     if(!is_admin($_COOKIE["token"])) {
@@ -30,8 +30,22 @@ if (!isset($_COOKIE["token"])) {
 <body>
     <nav>
         <ul class="topnav">
-            <li><a href="Main.html">Home</a></li>
-            <li><a href="login.php" class="active">Admin</a></li>
+            <li><a href="main.php">Main</a></li>
+            <?php
+            if (isset($_COOKIE["token"]) && is_logged_in($_COOKIE["token"])) {
+                echo '<li><a href="user.php">Profile</a></li>';
+                if(is_admin($_COOKIE["token"])) {
+                    echo '<li><a class="active">Admin</a></li>';
+                }
+            }
+            ?>
+            <li><a href="actors.php">Actors</a></li>
+            <li><a href="about.php">About</a></li>
+            <?php
+            if (isset($_COOKIE["token"]) && is_logged_in($_COOKIE["token"])) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+            }
+            ?>
         </ul>
     </nav>
     <main class="container">
@@ -77,7 +91,7 @@ if (!isset($_COOKIE["token"])) {
                         <th class="action-content" colspan="2">Actions</th>
                     -->
                     <th class="name-actor-content">Actor Name</th>
-                    <th class="action-content" colspan="2">Actions</th>
+                    <th class="action-content">Actions</th>
                 </tr>
             </table>
             <div class="data-box">

@@ -28,6 +28,26 @@ class User extends DB {
         }
     }
 
+    public function getUserByToken($token): int | null{
+        try {
+            $sql = "SELECT id_user
+                    FROM session
+                    WHERE token = :token;";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (isset($user["id_user"])) {
+                return $user["id_user"];
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            echo "Error fetching user: " . $e->getMessage();
+            return null;
+        }
+    }
+
     public function addUser($firstname, $lastname, $username, $email, $password) {
         try {
             $sql = "INSERT INTO users (firstname, lastname, username, email, password, role) VALUES (:firstname, :lastname, :username, :email, :password, :role)";
@@ -73,7 +93,8 @@ class User extends DB {
         try {
             $sql = "UPDATE users SET password = :password WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $hash_pass = password_hash($password, PASSWORD_BCRYPT);
+            $stmt->bindParam(':password', $hash_pass, PDO::PARAM_STR);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
@@ -123,7 +144,7 @@ class User extends DB {
         }
     }
 
-    public function checkUserByUsername($username) {
+    public function checkUserByUsername($username): bool | null {
         try {
             $sql = "SELECT * FROM users WHERE username = :username";
             $stmt = $this->pdo->prepare($sql);
@@ -141,7 +162,7 @@ class User extends DB {
         }
     }
 
-    public function checkUserByEmail($email) {
+    public function checkUserByEmail($email): bool | null {
         try {
             $sql = "SELECT * FROM users WHERE email = :email";
             $stmt = $this->pdo->prepare($sql);
@@ -152,6 +173,21 @@ class User extends DB {
             } else {
                 return false;
             }
+        } catch (PDOException $e) {
+            echo "Error fetching user: " . $e->getMessage();
+            return null;
+        }
+    }
+
+    public function getUserByName($name): array | null{
+        try {
+            $sql = "SELECT * FROM users WHERE username = :username OR email = :email";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':username', $name, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $name, PDO::PARAM_STR);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $user;
         } catch (PDOException $e) {
             echo "Error fetching user: " . $e->getMessage();
             return null;

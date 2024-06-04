@@ -43,22 +43,18 @@ class Router {
                         exit;
                     }
                 } else if ($controllerName === 'ActorController') {
-                    if (isset($_GET['token'])) {
-                        if (isset($_GET['page'])) {
-                            $controller->getActorByPage($_GET['page'], $_GET['token']);
-                        } else {
-                            $controller->getActors($_GET['token']);
-                        }
+                    if (isset($_GET['token']) && isset($_GET['page'])) {
+                        $controller->getActorByPage($_GET['page'], $_GET['token']);
                     } else {
-                        http_response_code(405);
-                        echo '405 Method Not Allowed';
-                        exit;
+                        $controller->getActors();
                     }
                 } else if ($controllerName === 'ActorViewController') {
-                    if (isset($_GET['page'])) {
-                        $controller->getActorByPage($_GET['page']);
-                    } else if (isset($_GET['actor'])) {
-                        $controller->getActorImgById($_GET['actor']);
+                    if (isset($_GET['id'])) {
+                        if (isset($_GET['token'])) {
+                            $controller->getActorView($_GET['id'], $_GET['token']);
+                        } else {
+                            $controller->getActorView($_GET['id'], null);
+                        }
                     } else {
                         http_response_code(405);
                         echo '405 Method Not Allowed';
@@ -110,6 +106,8 @@ class Router {
                     $controller->createSAGTable();
                 } else if ($controllerName === 'ActorController') {
                     $controller->addActor();
+                } else if ($controllerName === 'ActorFavouriteController') {
+                    $controller->addFavouriteActor();
                 } else {
                     http_response_code(405);
                     echo '405 Method Not Allowed';
@@ -123,6 +121,8 @@ class Router {
                     $controller->deleteActor();
                 } else if ($controllerName === 'TableController') {
                     $controller->deleteSAG();
+                } else if ($controllerName === 'ActorFavouriteController') {
+                    $controller->removeFavouriteActor();
                 } else {
                     http_response_code(405);
                     echo '405 Method Not Allowed';

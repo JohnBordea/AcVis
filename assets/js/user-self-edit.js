@@ -4,6 +4,7 @@ const FavoriteContainer = document.getElementById("favorite-container");
 const FavoritePageButtonIndexLeft = document.getElementById("button-favorite-previous");
 const FavoritePageButtonIndexRight = document.getElementById("button-favorite-next");
 const FavoritePageIndex = document.getElementById("favorite-page-index");
+const errorLabel = document.getElementById("user-insert-error");
 var lastPage = false;
 var pageCount = 0;
 
@@ -13,6 +14,13 @@ async function sendRestAPIRequest(operation, url, onloadFunction, jsonData) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = onloadFunction;
     xhr.send(jsonData);
+}
+
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=None; Secure";
 }
 
 function getCookie(cname) {
@@ -46,19 +54,62 @@ ButtonEdit.addEventListener("click", (e) => {
     ButtonSave.disabled = false;
 })
 
+function setUserData() {
+    document.getElementById("user-firstname").value = getCookie("firstname");
+    document.getElementById("user-lastname").value = getCookie("lastname");
+    document.getElementById("user-username").value = getCookie("username");
+    document.getElementById("user-email").value = getCookie("email");
+}
+
+
 ButtonSave.addEventListener("click", (e) => {
-    document.getElementById("user-firstname").readOnly = true;
-    document.getElementById("user-lastname").readOnly = true;
-    document.getElementById("user-username").readOnly = true;
-    document.getElementById("user-email").readOnly = true;
+    var firstName = document.getElementById("user-firstname").value;
+    var lastName = document.getElementById("user-lastname").value;
+    var userName = document.getElementById("user-username").value;
+    var emailName = document.getElementById("user-email").value;
 
-    ButtonEdit.classList.remove("disabled");
-    ButtonEdit.classList.add("enabled");
-    ButtonEdit.disabled = false;
+    errorLabel.style.display = "none";
 
-    ButtonSave.classList.remove("enabled");
-    ButtonSave.classList.add("disabled");
-    ButtonSave.disabled = true;
+    if (firstName === "" || lastName === "" || userName === "" || emailName === "") {
+        errorLabel.style.display = "inline";
+        errorLabel.textContent = "All fields must be filed."
+        return;
+    }
+
+    sendRestAPIRequest(
+        "PUT",
+        "./rest/api/users/",
+        function() {
+            var response = JSON.parse(this.responseText);
+            if (response.hasOwnProperty("result")) {
+                setCookie("firstname", response["result"]['firstname'], 10);
+                setCookie("lastname", response["result"]['lastname'], 10);
+                setCookie("username", response["result"]['username'], 10);
+                setCookie("email", response["result"]['email'], 10);
+            }
+            setUserData();
+
+            document.getElementById("user-firstname").readOnly = true;
+            document.getElementById("user-lastname").readOnly = true;
+            document.getElementById("user-username").readOnly = true;
+            document.getElementById("user-email").readOnly = true;
+
+            ButtonEdit.classList.remove("disabled");
+            ButtonEdit.classList.add("enabled");
+            ButtonEdit.disabled = false;
+
+            ButtonSave.classList.remove("enabled");
+            ButtonSave.classList.add("disabled");
+            ButtonSave.disabled = true;
+        },
+        JSON.stringify({
+            token: getCookie("token"),
+            firstname: firstName,
+            lastname:  lastName,
+            username:  userName,
+            email:     emailName,
+        })
+    )
 })
 
 FavoritePageButtonIndexLeft.addEventListener("click", (e) => {
@@ -89,11 +140,21 @@ FavoritePageButtonIndexRight.addEventListener("click", (e) => {
 })
 
 function deleteFavActor(id) {
-    console.log("Delete Actor" + String(id));
+    sendRestAPIRequest(
+        "DELETE",
+        "./rest/api/actor/fav/",
+        function() {
+            getFavouriteActorByPage()
+        },
+        JSON.stringify({
+            id:    id,
+            token: getCookie("token")
+        })
+    )
 }
 
 function goToActor(id) {
-    console.log("Go To Actor" + String(id));
+    window.location.replace("actor.php?id=" + id);
 }
 
 function getFavouriteActorByPage() {
@@ -178,5 +239,7 @@ function setFavoriteActors(pageIndex) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    errorLabel.style.display = "none";
+    setUserData();
     getFavouriteActorByPage();
 })

@@ -109,7 +109,10 @@ class Table extends DB {
 
     public function addSAG($year, $category_id, $actor_id, $show_id, $result): int {
         try {
-            $sql = "INSERT INTO sag (year_of_competition, category_id, actor_id, show_id, result) VALUES (:year_of_competition, :category_id, :actor_id, :show_id, :result)";
+            $sql = "INSERT INTO
+                        sag (year_of_competition, category_id, actor_id, show_id, result)
+                    VALUES
+                        (:year_of_competition, :category_id, :actor_id, :show_id, :result)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':year_of_competition', $year, PDO::PARAM_INT);
             $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
@@ -121,6 +124,63 @@ class Table extends DB {
         } catch (PDOException $e) {
             echo "Error adding SAG entry: " . $e->getMessage();
             return -1;
+        }
+    }
+
+    public function updateSAG($year, $category_id, $actor_id, $show_id, $result): int {
+        try {
+            $sql = "UPDATE
+                        sag
+                    SET
+                        result = :result
+                    WHERE
+                        year_of_competition = :year_of_competition
+                    AND
+                        category_id = :category_id
+                    AND
+                        actor_id = :actor_id
+                    AND
+                        show_id = :show_id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':year_of_competition', $year, PDO::PARAM_INT);
+            $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+            $stmt->bindParam(':actor_id', $actor_id, PDO::PARAM_INT);
+            $stmt->bindParam(':show_id', $show_id, PDO::PARAM_INT);
+            $stmt->bindParam(':result', $result, PDO::PARAM_STR);
+            $stmt->execute();
+            return $this->pdo->lastInsertId();
+        } catch (PDOException $e) {
+            echo "Error adding SAG entry: " . $e->getMessage();
+            return -1;
+        }
+    }
+
+    public function isSAGInDB($year, $category_id, $actor_id, $show_id): bool {
+        try {
+            $sql = "SELECT * FROM
+                        sag
+                    WHERE
+                        year_of_competition = :year_of_competition
+                    AND
+                        category_id = :category_id
+                    AND
+                        actor_id = :actor_id
+                    AND
+                        show_id = :show_id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':year_of_competition', $year, PDO::PARAM_INT);
+            $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+            $stmt->bindParam(':actor_id', $actor_id, PDO::PARAM_INT);
+            $stmt->bindParam(':show_id', $show_id, PDO::PARAM_INT);
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Error adding SAG entry: " . $e->getMessage();
+            return false;
         }
     }
 

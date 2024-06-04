@@ -9,16 +9,10 @@ class ActorController {
         $this->actorModel = new Actor();
     }
 
-    public function getActors($user_token) {
-        $is_admin = $this->userModel->checkUserIsAdmin($user_token);
-        if ($is_admin) {
-            $actors = $this->actorModel->getActors();
-            http_response_code(200);
-            echo json_encode(['actor' => $actors]);
-        } else {
-            http_response_code(204);
-            echo json_encode(['actor' => []]);
-        }
+    public function getActors() {
+        $actors = $this->actorModel->getActors();
+        http_response_code(200);
+        echo json_encode(['actor' => $actors]);
     }
 
     public function getActorByPage($page, $user_token) {

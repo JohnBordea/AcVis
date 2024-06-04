@@ -1,3 +1,16 @@
+<?php
+session_start();
+define('BASE_PATH', dirname(__DIR__));
+
+require_once "./assets/php/functions.php";
+
+if (isset($_COOKIE["token"])) {
+    if(is_logged_in($_COOKIE["token"])) {
+        header("Location: ./user.php");
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,13 +23,13 @@
 
 </head>
 <body>
-  <nav>
-    <ul class="topnav">
-      <li><a href="login.php">Login</a></li>
-      <li><a href="Main.html">Main</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-  </nav>
+    <nav>
+        <ul class="topnav">
+            <li><a href="main.php">Main</a></li>
+            <li><a class="active">Register</a></li>
+            <li><a href="about.php">About</a></li>
+        </ul>
+    </nav>
 
     <main class="container">
         <form id="register-new-user-form" class="form">

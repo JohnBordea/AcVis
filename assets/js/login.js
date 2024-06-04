@@ -32,6 +32,9 @@ loginButton.addEventListener("click", (e) => {
     const pwd = document.getElementById("password-field").value;
     const xhr = new XMLHttpRequest();
 
+    console.log(user);
+    console.log(pwd);
+
     xhr.open("POST", "./rest/api/login/", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 

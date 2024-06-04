@@ -196,13 +196,18 @@ function getActorsByPage() {
 
                     var cellName = document.createElement("td");
                     cellName.textContent = response["actor"][i]["actor_name"];
-
-                    var cellToEdit = document.createElement("td");
-                    cellToEdit.textContent = "Edit";
-                    cellToEdit.className = "edit small";
-                    cellToEdit.onclick = function() {
+                    cellName.onclick = function() {
                         editActorAdmin(this.parentNode.firstElementChild.textContent);
                     };
+
+                    /*
+                        var cellToEdit = document.createElement("td");
+                        cellToEdit.textContent = "Edit";
+                        cellToEdit.className = "edit small";
+                        cellToEdit.onclick = function() {
+                            editActorAdmin(this.parentNode.firstElementChild.textContent);
+                        };
+                    */
 
                     var cellToDelete = document.createElement("td");
                     cellToDelete.textContent = "Delete";
@@ -212,7 +217,7 @@ function getActorsByPage() {
                     };
                     newRow.appendChild(cellId);
                     newRow.appendChild(cellName);
-                    newRow.appendChild(cellToEdit);
+                    //newRow.appendChild(cellToEdit);
                     newRow.appendChild(cellToDelete);
 
                     table.appendChild(newRow);
@@ -227,7 +232,7 @@ function getActorsByPage() {
 }
 
 function editActorAdmin(actorId) {
-    window.location.replace("actor.html?id=" + String(actorId));
+    window.location.replace("actor.php?id=" + String(actorId));
 }
 
 function deleteActorAdmin(actorId) {
@@ -535,6 +540,7 @@ document.getElementById("button-oscar-table-import").addEventListener("click", (
                 document.getElementById('progressing-bar').style.width = "100%";
                 document.getElementById('progress-bar-text').innerHTML = "File Uploaded";
                 getSAGByPage();
+                getCreateSAGEntryData();
             } else if (width <= (( uploadedPackage / uploadPackageMaxSize ) * 100)) {
                 width++;
                 document.getElementById('progressing-bar').style.width = width + "%";
@@ -620,7 +626,7 @@ document.getElementById("button-entry-sag-save").addEventListener("click", (e) =
                 label.textContent = "Entry added";
                 result.appendChild(label);
             }
-            getActorsByPage();
+            getSAGByPage();
         },
         JSON.stringify({
             year:     year,

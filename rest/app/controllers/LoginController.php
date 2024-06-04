@@ -43,7 +43,7 @@ class LoginController {
             }
         }
 
-        http_response_code(407);
+        http_response_code(307);
         echo json_encode(['error' => 'User not found here']);
     }
 
